@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>Avatar-Mission | Klasse 5 | 90 Minuten | Avatar-Studio</title>
+  <style>
+    :root{--ink:#24304a;--muted:#5b6a80;--blue:#315bdf;--blue2:#ebf0ff;--purple:#8061cc;--paper:#fff;--bg:#f3f6fc;--border:#dce4f0;--good:#17704b;--goodbg:#e8f8ef;--bad:#a43738;--badbg:#fff0ee;--yellow:#fff3cd;--focus:#ed9c35}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.48;-webkit-text-size-adjust:100%}
+    button,input,textarea,select{font:inherit}
+    button{touch-action:manipulation;cursor:pointer}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+    a{color:#274fca;font-weight:700}
+    .shell{max-width:1180px;margin:auto;padding:16px 18px 70px}
+    .mast{background:linear-gradient(110deg,#293f9c,#6c4ccc);color:white;border-radius:23px;padding:24px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:0 9px 26px #263f9330}
+    .mast h1{font-size:clamp(1.8rem,4.5vw,2.7rem);line-height:1.05;margin:3px 0 8px}
+    .mast p{margin:0;opacity:.96}
+    .mast .badge{display:inline-block;border-radius:999px;border:1px solid #ffffff6b;padding:5px 12px;font-size:.8rem;font-weight:800;letter-spacing:.03em}
+    .head-emoji{font-size:clamp(3.6rem,8vw,6rem);filter:drop-shadow(0 9px 9px #14256e55);flex:0 0 auto}
+    .subbar{display:flex;align-items:center;gap:15px;flex-wrap:wrap;justify-content:space-between;margin:17px 1px}
+    .subbar small{font-size:.93rem;color:var(--muted)}
+    .meter{width:min(430px,100%);height:12px;background:#e1e7f4;border-radius:99px;overflow:hidden}
+    .meter>span{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#5c8df5,#8655ca);transition:width .25s}
+    .nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:18px 0}
+    .nav a{border:1px solid var(--border);background:#fff;border-radius:16px;padding:12px 8px;min-height:87px;color:var(--ink);font-size:.86rem;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 2px 8px #334d7610}
+    .nav .n{font-size:1.35rem;line-height:1.1}
+    .nav a[aria-current="step"]{border:2px solid #4e64e8;background:#eef0ff;color:#253d9e}
+    .nav a.done:after{content:'✓ geschafft';font-size:.67rem;color:var(--good);font-weight:900}
+    .panel{display:block;margin:18px 0;scroll-margin-top:14px;background:white;border:1px solid var(--border);border-radius:23px;padding:clamp(19px,3vw,32px);box-shadow:0 12px 35px #31456e14}
+    /* Ohne JavaScript bleiben alle sechs Arbeitsblätter sichtbar und per Sprunglink erreichbar. */
+    .js-ready .panel{display:none}
+    .js-ready .panel.active,.js-ready.show-all .panel{display:block}
+    .nav a{text-decoration:none;text-align:center}
+    .nav a:hover{border-color:#7790e8;background:#f2f5ff}
+    .js-ready #teacherPreview{display:inline-flex}
+    #teacherPreview{display:none}
+    .preview-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:12px 1px 2px}
+    .preview-tools p{margin:0;color:var(--muted);font-size:.93rem}
+    .panel.active{display:block}
+    .chapter{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+    .pill{border-radius:999px;padding:5px 12px;font-size:.86rem;font-weight:800;background:#eae9ff;color:#4b43ab}
+    .time{border-radius:999px;padding:5px 12px;font-size:.86rem;font-weight:800;background:#eff7ff;color:#235689}
+    h2{font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.2;margin:6px 0 12px}
+    h3{font-size:1.16rem;margin:0 0 10px}
+    .lead{font-size:1.08rem;color:#48586f;max-width:82ch;margin:0 0 20px}
+    .info{border:1px solid #cfdbff;background:#f3f6ff;padding:14px 16px;border-radius:15px;margin:16px 0}
+    .warn{background:#fff7e3;border:1px solid #edcf7e;padding:14px 16px;border-radius:15px;margin:16px 0}
+    .grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;align-items:start}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .tile{border:1px solid var(--border);border-radius:17px;padding:17px;background:#fff}
+    .tile p{margin:6px 0 0}
+    .tile .emoji{font-size:1.9rem}
+    .question{border:1px solid var(--border);border-radius:15px;padding:16px;margin:12px 0}
+    .question legend{font-weight:850;padding:0 6px}
+    .options{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:9px;margin-top:9px}
+    .choice{display:flex;gap:9px;align-items:center;min-height:53px;padding:10px 12px;background:#f7f9fd;border:1px solid #e0e6f0;border-radius:11px;cursor:pointer}
+    .choice:has(input:checked){border-color:#6b78dd;background:#eff1ff}
+    input[type="radio"],input[type="checkbox"]{accent-color:var(--blue);width:19px;height:19px;flex-shrink:0}
+    .response{min-height:18px;margin:6px 0 0;font-size:.94rem;font-weight:700}
+    .response.good,.feedback.good{color:var(--good)}
+    .response.bad,.feedback.bad{color:var(--bad)}
+    .feedback{display:none;border-radius:13px;padding:11px 14px;margin:13px 0;font-weight:750}
+    .feedback.show{display:block}
+    .feedback.good{background:var(--goodbg)}
+    .feedback.bad{background:var(--badbg)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:0;border-radius:12px;padding:12px 19px;min-height:45px;color:white;background:var(--blue);font-weight:800;box-shadow:0 3px 8px #344ec52b}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.secondary{background:#ebefff;color:#2942a0;box-shadow:none}
+    .btn.soft{background:white;color:#38445c;border:1px solid #cfd7e5;box-shadow:none}
+    .btn.green{background:#167652}
+    .btn:disabled{opacity:.48;cursor:not-allowed}
+    .row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+    .actions{border-top:1px solid var(--border);padding-top:22px;margin-top:24px;display:flex;gap:11px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .actions .right{display:flex;gap:9px;flex-wrap:wrap}
+    .editor{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(360px,1.2fr);gap:24px}
+    .avatar-card{border:1px solid #d4dffa;border-radius:22px;background:#f7f9ff;padding:15px;text-align:center;position:sticky;top:10px}
+    .avatar-display{width:100%;max-width:390px;aspect-ratio:1;margin:0 auto;background:#eef1ff;border-radius:19px;overflow:hidden}
+    .avatar-display svg,.avatar-display img,.avatar-small svg,.avatar-small img,.comic-face svg,.comic-face img,.print-face svg,.print-face img{display:block;width:100%;height:100%;object-fit:cover}
+    .avatar-tools{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:13px}
+    .controlgroup{border-bottom:1px solid var(--border);padding:10px 0 15px}
+    .controlgroup:last-child{border:0}
+    .controlgroup h3{font-size:1rem;margin:0 0 10px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{border:1.5px solid #dce3ef;background:#fff;border-radius:11px;min-width:50px;padding:9px 12px;font-weight:700;color:var(--ink);min-height:43px}
+    .chip[aria-pressed="true"]{border-color:#4e63d3;background:#eef0ff;box-shadow:inset 0 0 0 1px #4e63d3;color:#293f9e}
+    .swatch{width:25px;height:25px;border:1px solid #0002;border-radius:50%;display:block}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:15px}
+    .field label,.field .field-label{font-weight:800}
+    .field input,.field textarea,.field select{border:1.5px solid #cdd7e6;border-radius:11px;min-height:48px;padding:11px 12px;color:#21314a;background:#fff;width:100%;font-size:1rem}
+    .field textarea{min-height:100px;resize:vertical}
+    .hint{color:#56657a;font-size:.87rem}
+    .traits{display:flex;flex-wrap:wrap;gap:10px}
+    .trait{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;border:1px solid var(--border);border-radius:11px;background:#f8faff}
+    .profile-card{border:1px solid #cfd9f0;padding:18px;background:linear-gradient(145deg,#f6f8ff,#faf6ff);border-radius:18px}
+    .avatar-small{width:140px;height:140px;border-radius:16px;overflow:hidden;background:#f0f3ff;margin:0 auto 12px}
+    .profile-card .line{padding:7px 0;border-bottom:1px solid #d9e2f2;overflow-wrap:anywhere}
+    .profile-card .line:last-child{border:0}
+    .sort-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    .sort-btn{border:1px solid #cad7f2;border-radius:12px;min-height:55px;background:#f1f5ff;color:#29408e;font-weight:800;padding:11px}
+    .sort-btn:disabled{opacity:.43}
+    .sort-list{min-height:100px;background:#f8f9fc;border:1.5px dashed #b5c2dc;border-radius:13px;padding:12px;margin:12px 0}
+    .sort-list ol{margin:0;padding-left:28px}
+    .sort-list li{padding:4px 0;font-weight:700}
+    .comic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
+    .comic-panel{border:2px solid #d8def2;border-radius:18px;overflow:hidden;background:#f9faff;min-height:265px;display:flex;flex-direction:column}
+    .comic-top{text-align:center;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;font-weight:900;background:#e9edff;padding:8px}
+    .comic-face{height:157px;width:157px;max-width:90%;margin:8px auto 0;overflow:hidden;border-radius:13px}
+    .bubble{margin:9px 10px 14px;background:#fff;border:1px solid #bbc9e5;border-radius:16px;padding:10px;font-weight:800;min-height:59px;text-align:center;overflow-wrap:anywhere}
+    .comic-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .star{font-size:3.6rem;text-align:center}
+    .certificate{text-align:center;background:#f5f3ff;border:2px solid #d6ccfb;border-radius:20px;padding:20px}
+    .checklist{display:grid;gap:9px;margin:18px 0}
+    .checklist .task{border-radius:11px;background:#f7f9fc;border:1px solid var(--border);padding:10px 13px;display:flex;gap:10px;align-items:center;font-weight:700}
+    .task .tick{width:26px;height:26px;flex:0 0 auto;border-radius:50%;background:#e7ebf3;display:grid;place-items:center}
+    .task.yes .tick{color:#fff;background:#1f885b}
+    footer{color:#627186;text-align:center;font-size:.86rem;margin-top:21px}
+    details{margin-top:20px;border:1px solid var(--border);border-radius:13px;background:#fff;padding:12px 15px}
+    details summary{font-weight:800;cursor:pointer}
+    #printSheet{display:none}
+    #statusToast{position:fixed;bottom:19px;left:50%;transform:translateX(-50%) translateY(20px);z-index:30;background:#223a65;color:#fff;border-radius:12px;box-shadow:0 8px 25px #0003;padding:12px 17px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;text-align:center;max-width:90vw}
+    #statusToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    /* Avatar-Designer: große, klar beschriftete Touch-Flächen */
+    .designer-guide{border:1px solid #b9cafa;background:#eff4ff;border-radius:16px;padding:15px 17px;margin:0 0 17px;font-size:1.03rem}
+    .designer-guide strong{display:block;color:#1f429b;font-size:1.12rem;margin-bottom:4px}
+    .designer-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:16px}
+    .designer-tab{border:2px solid #d4ddf0;background:white;color:#253553;border-radius:14px;padding:10px 5px;min-height:82px;font-weight:850;font-size:.91rem;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .designer-tab .tab-icon{font-size:1.65rem}
+    .designer-tab[aria-pressed="true"]{background:#315bdf;border-color:#315bdf;color:white;box-shadow:0 3px 8px #315bdf33}
+    .designer-tab.done-stage:not([aria-pressed="true"]){border-color:#b8dccc;background:#effaf3}
+    .designer-heading{font-size:1.23rem;line-height:1.3;margin:9px 0 13px;color:#20365d}
+    .designer-group{border:1px solid #d9e2f0;background:#fcfdff;border-radius:16px;padding:15px;margin:0 0 14px}
+    .designer-group h3{font-size:1.13rem;color:#20365d;margin-bottom:5px}
+    .designer-group .group-hint{color:#4b5e78;margin:0 0 12px;font-size:.96rem}
+    .designer-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px}
+    .avatar-option{min-width:0;min-height:94px;background:#fff;border:2px solid #cbd6e8;color:#152b4e;border-radius:14px;padding:10px 7px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font-weight:850;font-size:1rem;line-height:1.24;text-align:center;overflow-wrap:anywhere}
+    .avatar-option .option-icon{font-size:2.05rem;line-height:1.15}
+    .avatar-option .option-label{display:block;color:inherit;font-size:1rem;font-weight:850;line-height:1.2}
+    .avatar-option .swatch{width:38px;height:38px;flex:0 0 auto;border:2px solid #78879c66}
+    .avatar-option[aria-pressed="true"]{background:#e8eeff;border-color:#284fd5;color:#17368f;box-shadow:inset 0 0 0 1px #284fd5,0 2px 10px #315bdf24}
+    .avatar-option[aria-pressed="true"]:after{content:'✓ gewählt';font-weight:800;color:#1c6b45;font-size:.82rem}
+    .designer-bottom{border-top:1px solid #dbe2ef;padding-top:16px;display:flex;gap:9px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .designer-bottom .designer-counter{color:#435572;font-weight:800}
+    .designer-done{background:#e9f8ef;border:1px solid #a4d5b9;border-radius:14px;padding:16px;margin:12px 0;font-size:1.02rem}
+    .designer-done h3{margin:0 0 5px;color:#176447}
+    .avatar-card .preview-label{font-weight:850;font-size:1.06rem;color:#2d4698;margin:0 0 11px}
+    .optional-avatar{margin-top:20px;border:1px solid #dce4f0;border-radius:14px;padding:12px 16px;background:#f8faff}
+    .optional-avatar summary{font-weight:800;cursor:pointer;color:#344e8a;min-height:30px}
+    .optional-avatar[open] summary{margin-bottom:12px}
+    @media(max-width:920px){.editor{grid-template-columns:1fr}.avatar-card{position:static}.grid2{grid-template-columns:1fr}.comic{grid-template-columns:repeat(3,minmax(0,1fr))}.comic-face{height:115px;width:115px}}
+    @media(max-width:650px){.shell{padding:10px 10px 35px}.mast{padding:20px 16px;border-radius:16px}.head-emoji{font-size:3.5rem}.nav{grid-template-columns:repeat(3,minmax(0,1fr))}.nav a{min-height:66px;padding:9px 5px;font-size:.76rem}.nav .n{font-size:1.1rem}.panel{padding:18px 14px;border-radius:16px}.grid3,.comic-fields{grid-template-columns:1fr}.comic{grid-template-columns:1fr}.comic-panel{min-height:0}.comic-face{height:155px;width:155px}.sort-grid{grid-template-columns:1fr}.options{grid-template-columns:1fr}.actions{align-items:stretch;flex-direction:column}.actions .right{width:100%}.actions button,.actions a{flex:1}.avatar-display{max-width:350px}.subbar{gap:10px}}
+    @media(max-width:920px){.avatar-display{max-width:260px}.avatar-card{padding:12px}.avatar-tools{margin-top:9px}}
+    @media(max-width:650px){.designer-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.designer-tab{padding:7px 2px;min-height:75px;font-size:.72rem;letter-spacing:-.02em}.designer-tab .tab-icon{font-size:1.5rem}.designer-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.avatar-option{min-height:92px;font-size:1rem}.designer-bottom .btn{flex:1}.designer-bottom .designer-counter{width:100%;text-align:center;order:-1}.avatar-display{max-width:240px}.avatar-card .btn{font-size:.89rem;padding:10px 13px}}
+
+    /* Bildauswahl: jede Schaltfläche besitzt ein echtes, offline gerendertes SVG-Avatarbild. */
+    .designer-options{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+    .avatar-option.with-preview{min-height:152px;padding:7px 6px 10px;justify-content:start;gap:7px}
+    .option-preview{width:100%;aspect-ratio:1;max-height:116px;border-radius:11px;overflow:hidden;background:#e8edf8;box-shadow:inset 0 0 0 1px #becbdd}
+    .option-preview svg{display:block;width:100%;height:100%}
+    .avatar-option.with-preview .option-label{font-size:.9rem;line-height:1.3;min-height:23px}
+    .avatar-option.with-preview[aria-pressed="true"]{border-color:#2a58e6;background:#e8f0ff;box-shadow:0 0 0 2px #9db7ff}
+    .avatar-card{z-index:1}
+    .avatar-display{background:#e9edfa}
+    .designer-guide{font-size:1rem}
+    @media(min-width:741px) and (max-width:980px){.editor{grid-template-columns:minmax(215px,.82fr) minmax(0,1.18fr);gap:14px}.avatar-card{position:sticky;top:8px}.avatar-display{max-width:300px}.designer-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.avatar-option.with-preview{min-height:128px;padding:6px}.option-preview{max-height:100px}}
+    @media(max-width:740px){.editor{grid-template-columns:1fr}.avatar-card{position:static}.designer-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.avatar-option.with-preview{min-height:135px}.option-preview{max-height:112px}.designer-tab{min-height:75px}}
+    /* Eindeutige Warnung in iPad-Dateivorschauen ohne JavaScript */
+    .script-warning{display:flex;gap:12px;align-items:flex-start;border:2px solid #d97706;border-radius:16px;background:#fff8e7;color:#704204;padding:14px 18px;margin:16px 0;font-size:1.03rem}
+    .script-warning strong{display:block;margin-bottom:5px}
+    .js-ready .script-warning{display:none}
+    .script-ready{display:none;font-weight:850;border:2px solid #9bd2b9;border-radius:12px;background:#e8f8f0;color:#126344;padding:10px 13px;margin:12px 0}
+    .js-ready .script-ready{display:block}
+    .preview-change{font-weight:750;color:#1d4e8d;min-height:27px}
+    @media print{
+      @page{size:A4 portrait;margin:13mm}
+      body{background:#fff;color:#171d2c}
+      .shell,#statusToast{display:none!important}
+      #printSheet{display:block!important;font-family:system-ui,'Segoe UI',sans-serif}
+      #printSheet h1{font-size:24pt;margin:0 0 8mm;color:#2c4190}
+      .print-layout{display:grid;grid-template-columns:1fr 1fr;gap:8mm;align-items:start}
+      .print-face{width:72mm;height:72mm;border:1px solid #d4d8e4;border-radius:12px;overflow:hidden}
+      .print-item{margin:0 0 4mm;overflow-wrap:anywhere;white-space:pre-wrap}
+      .print-comic{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:9mm}
+      .print-box{border:1px solid #c6cdda;border-radius:8px;padding:4mm;min-height:36mm;overflow-wrap:anywhere}
+      .print-tag{font-weight:900;color:#384e8a}
+      .print-footer{margin-top:8mm;border-top:1px solid #d7dbe4;padding-top:3mm;font-size:9pt;color:#5b6478}
+    }
+  
+    /* Avatar Atelier v3: two large accessible modes, touch drawing */
+    .mode-heading{font-size:1.18rem;font-weight:900;color:#263a69;margin:20px 0 10px}
+    .creator-mode{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 20px}
+    .mode-choice{display:flex;text-align:left;align-items:center;gap:12px;min-height:84px;border:3px solid #cbd7eb;background:#fff;border-radius:20px;padding:13px 16px;color:#253453;cursor:pointer}
+    .mode-choice[aria-pressed="true"]{border-color:#4264e6;background:#eef2ff;box-shadow:0 3px 13px #4264e62c}
+    .mode-choice strong,.mode-choice small{display:block}.mode-choice strong{font-size:1.06rem}.mode-choice small{font-size:.88rem;color:#52627d;line-height:1.4;margin-top:3px}
+    .mode-emoji{font-size:2.1rem;flex-shrink:0}
+    [hidden]{display:none!important}
+    .color-lab{border:2px solid #d6e3f8;background:#f5f9ff;padding:14px;border-radius:18px;margin:16px 0}
+    .color-lab h3{margin:0 0 6px;color:#2d4384}.color-lab p{margin:2px 0 14px;color:#4a5871}
+    .custom-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .custom-color-row{display:flex;flex-direction:column;gap:7px;font-weight:800;font-size:.93rem;border:1px solid #d1dded;background:#fff;border-radius:14px;padding:11px}
+    .custom-color-row input[type=color]{width:100%;height:48px;padding:4px;border:1px solid #a9b6cb;border-radius:9px;background:#fff;cursor:pointer}
+    .motif-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+    .motif-choice{min-height:74px;border:2px solid #cdd9ea;background:white;border-radius:14px;color:#263957;font-weight:800;display:grid;gap:2px;place-items:center;padding:6px;font-size:.84rem}
+    .motif-choice span{font-size:1.65rem}.motif-choice[aria-pressed=true]{border-color:#385fd4;background:#e8efff}
+    .paint-base-toggle,.paint-tools{display:flex;flex-wrap:wrap;gap:9px;margin:11px 0}
+    .base-choice,.paint-tool{flex:1;min-width:120px;min-height:51px;border-radius:12px;border:2px solid #c9d5e6;background:#fff;color:#293f66;font-weight:850;padding:11px;cursor:pointer}
+    .base-choice[aria-pressed=true],.paint-tool[aria-pressed=true]{border-color:#335ae5;background:#edf2ff;color:#2041aa}
+    .paint-stage{position:relative;width:min(100%,520px);aspect-ratio:1;margin:15px auto;background:#fff;border:3px solid #a1b7e2;border-radius:17px;overflow:hidden;box-shadow:0 7px 23px #27406a20}
+    .paint-background,.paint-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .paint-background svg,.paint-background img{display:block;width:100%;height:100%;object-fit:cover}
+    #paintCanvas{touch-action:none;cursor:crosshair;z-index:1}
+    .paint-help{color:#1c5986;background:#eaf6ff;border:1px solid #b5d4ee;border-radius:11px;padding:10px 13px;min-height:48px;font-weight:750}
+    .paint-label{font-size:1.06rem;margin:16px 0 10px}
+    .paint-colors{display:flex;flex-wrap:wrap;gap:11px}
+    .paint-color{border-radius:50%;width:49px;height:49px;border:3px solid white;box-shadow:0 0 0 2px #b9c6d8;cursor:pointer}
+    .paint-color[aria-pressed=true]{box-shadow:0 0 0 4px #315dec,0 0 0 6px white}
+    .paint-custom-label{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:13px 0 7px;font-weight:800}
+    .paint-custom-label input{height:49px;min-width:92px;max-width:122px;border-radius:11px;border:1px solid #b7c4d6}
+    .paint-sizes{display:flex;flex-wrap:wrap;gap:10px}
+    .paint-size{min-width:70px;min-height:57px;border:2px solid #cbd6e6;background:#fff;color:#293f66;border-radius:13px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:center}
+    .paint-size .dot{border-radius:50%;background:#314c94;display:inline-block}
+    .paint-size[aria-pressed=true]{background:#ebf0ff;border-color:#315dec}
+    .portrait-stack{position:relative;display:block;width:100%;height:100%;aspect-ratio:1}
+    .portrait-stack>svg,.portrait-stack>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .portrait-stack>.paint-overlay{pointer-events:none}
+    @media(max-width:690px){.creator-mode{grid-template-columns:1fr}.mode-choice{min-height:76px}.custom-colors{grid-template-columns:repeat(2,minmax(0,1fr))}.motif-choices{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="mast">
+    <div>
+      <span class="badge">INFORMATIK · KLASSE 5 · 90 MINUTEN</span>
+      <h1>🎨 Avatar-Mission!</h1>
+      <p>Erfinde eine eigene digitale Figur. Entdecke, wie du sie sicher erstellst, speicherst und vorstellst.</p>
+    </div>
+    <div class="head-emoji" aria-hidden="true">🧑‍🎨</div>
+  </header>
+  <div class="script-warning" id="noScriptWarning" role="alert">
+    <span style="font-size:1.7rem" aria-hidden="true">⚠️</span>
+    <div><strong>Die Avatar-Knöpfe funktionieren in dieser Dateivorschau nicht.</strong>
+    Diese Ansicht führt die Interaktivität nicht aus. Bitte öffne das Arbeitsblatt als <strong>echte Webseite in Safari</strong> (z. B. über den Link deiner Lehrkraft) oder lade die HTML-Datei über einen HTML-Viewer in Safari. <a href="https://convika.com/tools/html-viewer/" target="_blank" rel="noopener noreferrer">HTML-Viewer öffnen</a>. Danach erscheinen die Auswahlbilder und lassen sich antippen.</div>
+  </div>
+  <div class="subbar">
+    <div><strong id="progressText">0 von 6 Missionen geschafft</strong><br><small>Deine Eingaben werden nach Möglichkeit nur auf diesem Gerät gespeichert.</small></div>
+    <div class="meter" role="progressbar" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="progressMeter"><span id="progressBar"></span></div>
+  </div>
+  <nav class="nav" aria-label="Missionen auswählen">
+    <a href="#step0" data-step="0" aria-current="step"><span class="n">🛡️</span>1 · Sicher starten</a>
+    <a href="#step1" data-step="1"><span class="n">🎨</span>2 · Avatar bauen</a>
+    <a href="#step2" data-step="2"><span class="n">🪪</span>3 · Steckbrief</a>
+    <a href="#step3" data-step="3"><span class="n">🕵️</span>4 · Dateidetektive</a>
+    <a href="#step4" data-step="4"><span class="n">💬</span>5 · Mini-Comic</a>
+    <a href="#step5" data-step="5"><span class="n">🏆</span>6 · Abschluss</a>
+  </nav>
+  <div class="preview-tools">
+    <p>Wähle oben <strong>AB 1–6</strong> aus. Du kannst jederzeit springen – auch ohne die Aufgaben vorher zu lösen.</p>
+    <button class="btn secondary" type="button" id="teacherPreview" aria-pressed="false">👩‍🏫 Alle 6 ABs auf einmal ansehen</button>
+  </div>
+
+  <!-- MISSION 1 -->
+  <section class="panel active" id="step0" aria-labelledby="step0title">
+    <div class="chapter"><span class="pill">Mission 1 von 6</span><span class="time">⏱️ 10 Minuten</span></div>
+    <h2 id="step0title">🛡️ Sicher starten</h2>
+    <p class="lead">Heute erstellst du eine eigene Figur für die digitale Welt. So eine Figur heißt <strong>Avatar</strong>.</p>
+    <div class="grid3">
+      <div class="tile"><div class="emoji">🧑‍🚀</div><h3>Was ist ein Avatar?</h3><p>Ein Bild oder eine erfundene Figur, mit der du dich digital zeigen kannst.</p></div>
+      <div class="tile"><div class="emoji">🎭</div><h3>Wer soll das sein?</h3><p>Dein Avatar darf dir ähnlich sehen. Oder du denkst dir jemanden ganz Neues aus!</p></div>
+      <div class="tile"><div class="emoji">🔐</div><h3>Was bleibt privat?</h3><p>Dein echter Nachname, deine Adresse, Telefonnummer und Passwörter gehören nicht in ein öffentliches Profil.</p></div>
+    </div>
+    <div class="warn"><strong>Unser Klassen-Code:</strong> Wir benutzen für unsere Figuren Fantasienamen. Wir brauchen kein echtes Foto und keinen Account. Bevor du ein Bild öffentlich teilst, frage deine Lehrkraft.</div>
+    <h3>🔎 Mini-Quiz: Was ist richtig?</h3>
+    <div class="quiz" data-quiz="safety">
+      <fieldset class="question"><legend>1. Was ist ein Avatar?</legend><div class="options">
+        <label class="choice"><input type="radio" name="safety_q0" value="0"> Ein geheimes Passwort</label>
+        <label class="choice"><input type="radio" name="safety_q0" value="1"> Eine digitale Figur</label>
+        <label class="choice"><input type="radio" name="safety_q0" value="2"> Ein Computer-Kabel</label>
+      </div><p class="response" id="safety_r0" aria-live="polite"></p></fieldset>
+      <fieldset class="question"><legend>2. Welcher Name ist für ein öffentliches Avatar-Profil am besten?</legend><div class="options">
+        <label class="choice"><input type="radio" name="safety_q1" value="0"> Vorname und Nachname</label>
+        <label class="choice"><input type="radio" name="safety_q1" value="1"> Ein erfundener Name</label>
+        <label class="choice"><input type="radio" name="safety_q1" value="2"> Meine Wohnadresse</label>
+      </div><p class="response" id="safety_r1" aria-live="polite"></p></fieldset>
+      <fieldset class="question"><legend>3. Was gehört NICHT in ein öffentliches Profil?</legend><div class="options">
+        <label class="choice"><input type="radio" name="safety_q2" value="0"> Meine Lieblingsfarbe</label>
+        <label class="choice"><input type="radio" name="safety_q2" value="1"> Eine erfundene Superkraft</label>
+        <label class="choice"><input type="radio" name="safety_q2" value="2"> Meine genaue Wohnadresse</label>
+      </div><p class="response" id="safety_r2" aria-live="polite"></p></fieldset>
+    </div>
+    <button type="button" class="btn secondary" data-check="safety">✓ Antworten überprüfen</button>
+    <p id="safety_result" class="feedback" aria-live="polite"></p>
+    <div class="actions"><span class="hint">Tipp: Du darfst falsche Antworten verbessern.</span><div class="right"><button class="btn green" data-finish="0">Mission 1 abschließen und weiter →</button></div></div>
+  </section>
+
+  <!-- MISSION 2 -->
+  <section class="panel" id="step1" aria-labelledby="step1title">
+    <div class="chapter"><span class="pill">Mission 2 von 6</span><span class="time">⏱️ 25 Minuten</span></div>
+    <h2 id="step1title">🎨 Erstelle deinen eigenen Avatar</h2>
+    <p class="lead">Wähle, wie du arbeiten möchtest: Gestalte eine fröhliche Comicfigur mit vielen Farben oder zeichne selbst mit dem Finger oder Apple Pencil. Alles bleibt auf dieser Seite.</p>
+    <p class="script-ready" id="interactiveReady" role="status">✅ Avatar-Designer ist aktiv. Tippe jetzt auf ein Auswahlbild!</p>
+    <p class="preview-change" id="avatarChangeFeedback" aria-live="polite">Wähle eine Eigenschaft aus – du kannst sie jederzeit ändern.</p>
+    <div class="mode-heading">🪄 Wie möchtest du deinen Avatar gestalten?</div>
+    <div class="creator-mode" role="group" aria-label="Wähle deine Gestaltungsart">
+      <button type="button" class="mode-choice" id="modePreset" aria-pressed="true"><span class="mode-emoji">😊</span><span><strong>1. Comicfigur gestalten</strong><small>Haare, Lächeln, T-Shirt und Extras antippen</small></span></button>
+      <button type="button" class="mode-choice" id="modePaint" aria-pressed="false"><span class="mode-emoji">🖌️</span><span><strong>2. Selbst malen</strong><small>Mit dem Finger zeichnen, verzieren und verändern</small></span></button>
+    </div>
+    <div class="editor">
+      <div class="avatar-card">
+        <p class="preview-label">👀 So sieht deine Figur aus:</p>
+        <div class="avatar-display" id="avatarDisplay" role="img" aria-label="Vorschau des selbst gestalteten Avatars"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" aria-label="Avatar-Vorschau"><rect width="420" height="420" fill="#e9edff"/><path d="M85 420Q95 325 210 325Q325 325 335 420" fill="#4772d8"/><ellipse cx="210" cy="210" rx="94" ry="116" fill="#eab58a"/><path d="M115 195Q95 80 204 76Q312 74 304 195Q285 118 230 123Q185 137 143 123Z" fill="#74422e"/><g fill="#303e5b"><ellipse cx="174" cy="204" rx="8" ry="12"/><ellipse cx="246" cy="204" rx="8" ry="12"/></g><path d="M179 254Q210 282 242 254" fill="none" stroke="#8b5051" stroke-width="6" stroke-linecap="round"/></svg></div>
+        <p class="hint">Tippe auf ein Bild rechts: Du siehst sofort die Veränderung!</p>
+        <div class="avatar-tools">
+          <button class="btn soft" type="button" id="randomAvatar">🎲 Zufällige Figur</button>
+          <button class="btn" type="button" id="downloadPng">⬇️ Bild speichern</button>
+        </div>
+      </div>
+      <div>
+        <div id="presetPanel">
+      <div class="designer-guide"><strong>👆 So einfach geht's!</strong>1. Wähle oben einen Schritt. 2. Tippe auf ein <strong>kleines Avatar-Bild</strong>. 3. Schau in die große Vorschau. Du kannst alles beliebig oft ändern!</div>
+        <div id="designerSteps" class="designer-tabs" aria-label="Gestaltungsschritte"></div>
+        <noscript><div class="warn"><strong>Die Auswahlbilder benötigen JavaScript.</strong> Öffne die HTML-Datei in einem richtigen Browser beziehungsweise als Webseite auf eurer Schulplattform. Die Dateien-Vorschau des iPads zeigt keine interaktiven Funktionen.</div></noscript>
+        <div id="avatarControls"></div>
+        <div class="designer-bottom">
+          <button type="button" class="btn soft" id="editorPrev">← Zurück</button>
+          <span id="editorStatus" class="designer-counter" aria-live="polite">Schritt 1 von 5</span>
+          <button type="button" class="btn" id="editorNext">Weiter →</button>
+        </div>
+        <details class="optional-avatar">
+          <summary>⭐ Für Profis: eigenes Bild hochladen (freiwillig)</summary>
+          <p>Du kannst auch auf <a href="https://avatarmaker.com/" target="_blank" rel="noopener noreferrer">Avatar Maker</a> ein Bild gestalten oder ein bereits gespeichertes Avatar-Bild auswählen. Wenn das zu schwierig ist, bleibe einfach bei den Schritten oben.</p>
+          <div class="row" style="margin-top:12px">
+            <label class="btn secondary" for="avatarUpload" style="display:inline-flex;align-items:center;cursor:pointer">📁 Avatar-Bild auswählen</label>
+            <input type="file" id="avatarUpload" accept="image/png,image/jpeg,image/webp" style="position:absolute;width:1px;height:1px;opacity:0" aria-label="Avatar-Bild auswählen">
+            <button class="btn soft" type="button" id="useBuiltIn">↶ Zurück zur Comicfigur</button>
+          </div>
+          <p class="hint" id="uploadInfo">Bitte nur selbst gestaltete Bilder verwenden, keine echten Personenfotos.</p>
+        </details>
+        </div><!-- /presetPanel -->
+      <div id="paintPanel" hidden>
+        <div class="designer-guide"><strong>🖌️ Mein eigenes Zeichenatelier</strong>Male direkt auf deiner Figur – zum Beispiel Muster auf das T-Shirt, ein Herz oder eine besondere Frisur. Du kannst auch auf einem leeren Blatt anfangen.</div>
+        <div class="paint-base-toggle" role="group" aria-label="Zeichenfläche wählen">
+          <button type="button" class="base-choice" data-paint-base="avatar" aria-pressed="true">👕 Auf meinen Avatar malen</button>
+          <button type="button" class="base-choice" data-paint-base="blank" aria-pressed="false">🗒️ Auf leerem Blatt malen</button>
+        </div>
+        <div class="paint-stage">
+          <div id="paintBase" class="paint-background" aria-hidden="true"></div>
+          <canvas id="paintCanvas" width="420" height="420" aria-label="Zeichenfläche: hier mit dem Finger oder einem Stift malen"></canvas>
+        </div>
+        <p class="paint-help" id="paintMessage" role="status">Wähle eine Farbe und male mit deinem Finger oder Apple Pencil auf der Figur.</p>
+        <div class="paint-tools" role="group" aria-label="Zeichenwerkzeuge">
+          <button class="paint-tool" type="button" id="paintPen" aria-pressed="true">✏️ Stift</button>
+          <button class="paint-tool" type="button" id="paintEraser" aria-pressed="false">🧽 Radierer</button>
+          <button class="paint-tool" type="button" id="paintUndo">↶ Rückgängig</button>
+          <button class="paint-tool" type="button" id="paintClear">🗑️ Zeichnung löschen</button>
+        </div>
+        <h3 class="paint-label">🎨 Wähle eine Malfarbe</h3>
+        <div id="paintColors" class="paint-colors" role="group" aria-label="Malfarben"></div>
+        <label class="paint-custom-label" for="paintCustomColor">🌈 Eigene Malfarbe auswählen <input id="paintCustomColor" type="color" value="#e94480" aria-label="Eigene Malfarbe"></label>
+        <h3 class="paint-label">🖍️ Wie dick soll der Stift sein?</h3>
+        <div id="paintSizes" class="paint-sizes" role="group" aria-label="Strichstärke"></div>
+        <p class="hint">Du kannst jederzeit zur Comicfigur zurückwechseln. Deine Zeichnung bleibt erhalten und wird auch beim Speichern deines Bildes übernommen.</p>
+      </div><!-- /paintPanel -->
+      <div class="checklist" style="margin-top:20px">
+          <div class="task"><span class="tick">1</span> Gestalte mindestens drei Merkmale oder füge deiner Figur eine eigene Zeichnung hinzu.</div>
+          <div class="task"><span class="tick">2</span> Schaue dir deine fertige Figur in der Vorschau an.</div>
+          <div class="task"><span class="tick">3</span> Tippe auf „Bild speichern“. Deine selbst gemalten Elemente werden mitgespeichert.</div>
+        </div>
+      </div>
+    </div>
+    <p id="design_result" class="feedback" aria-live="polite"></p>
+    <div class="actions"><a class="btn soft" href="#step0" data-step="0">← Zurück</a><div class="right"><button class="btn green" data-finish="1">Mein Avatar ist fertig →</button></div></div>
+  </section>
+
+  <!-- MISSION 3 -->
+  <section class="panel" id="step2" aria-labelledby="step2title">
+    <div class="chapter"><span class="pill">Mission 3 von 6</span><span class="time">⏱️ 15 Minuten</span></div>
+    <h2 id="step2title">🪪 Der Steckbrief</h2>
+    <p class="lead">Jetzt bekommt deine Figur einen Fantasienamen, Eigenschaften und eine besondere Fähigkeit. Rechts entsteht dein Steckbrief ganz von allein.</p>
+    <div class="grid2">
+      <div>
+        <div class="field"><label for="nickname">1. Wie heißt dein Avatar? (Fantasiename)</label><input id="nickname" type="text" maxlength="34" placeholder="Zum Beispiel: Pixel-Paula" autocomplete="off"><span class="hint">Bitte nicht deinen vollständigen echten Namen eingeben.</span></div>
+        <div class="field"><label for="power">2. Was ist seine Superkraft?</label><select id="power"><option value="">Bitte auswählen …</option><option>Mit Tieren sprechen</option><option>Unsichtbar werden</option><option>Gedankenblitze haben</option><option>Superschnell rechnen</option><option>Fliegen</option><option>Andere zum Lachen bringen</option></select></div>
+        <div class="field"><label for="hobby">3. Was macht dein Avatar gerne?</label><input id="hobby" type="text" maxlength="90" placeholder="Zum Beispiel: Roboter bauen"></div>
+        <div class="field"><span class="field-label">4. Welche Eigenschaften passen? (mindestens 2 auswählen)</span><div class="traits" id="traitControls">
+          <label class="trait"><input type="checkbox" value="mutig"> mutig</label>
+          <label class="trait"><input type="checkbox" value="kreativ"> kreativ</label>
+          <label class="trait"><input type="checkbox" value="hilfsbereit"> hilfsbereit</label>
+          <label class="trait"><input type="checkbox" value="lustig"> lustig</label>
+          <label class="trait"><input type="checkbox" value="neugierig"> neugierig</label>
+          <label class="trait"><input type="checkbox" value="sportlich"> sportlich</label>
+        </div></div>
+        <div class="field"><label for="description">5. Stelle deinen Avatar in 1–3 Sätzen vor.</label><textarea id="description" maxlength="320" placeholder="Das ist Pixel-Paula. Sie liebt Rätsel und hilft anderen …"></textarea></div>
+        <button type="button" class="btn secondary" id="checkProfile">✓ Steckbrief überprüfen</button>
+        <p id="profile_result" class="feedback" aria-live="polite"></p>
+      </div>
+      <div class="profile-card" aria-live="polite">
+        <div class="avatar-small" id="profileAvatar"></div>
+        <h3 style="text-align:center" id="profileName">Mein Avatar</h3>
+        <div class="line"><strong>✨ Superkraft:</strong> <span id="profilePower">…</span></div>
+        <div class="line"><strong>🎯 Hobby:</strong> <span id="profileHobby">…</span></div>
+        <div class="line"><strong>💛 Eigenschaften:</strong> <span id="profileTraits">…</span></div>
+        <div class="line"><strong>💬 Das bin ich:</strong> <span id="profileDescription">…</span></div>
+      </div>
+    </div>
+    <div class="actions"><a class="btn soft" href="#step1" data-step="1">← Zurück</a><div class="right"><button class="btn green" data-finish="2">Steckbrief fertig →</button></div></div>
+  </section>
+
+  <!-- MISSION 4 -->
+  <section class="panel" id="step3" aria-labelledby="step3title">
+    <div class="chapter"><span class="pill">Mission 4 von 6</span><span class="time">⏱️ 15 Minuten</span></div>
+    <h2 id="step3title">🕵️ Die Dateidetektive</h2>
+    <p class="lead">Ein Computer braucht die richtigen Dateiformate. Entdecke, wie du deinen Avatar speichern und wiederfinden kannst.</p>
+    <div class="grid3">
+      <div class="tile"><div class="emoji">🖼️</div><h3>PNG</h3><p>Ein Bildformat. Gut für Comicfiguren und Bilder mit transparentem Hintergrund.</p></div>
+      <div class="tile"><div class="emoji">📷</div><h3>JPG / JPEG</h3><p>Ein Bildformat, das oft für Fotos genutzt wird.</p></div>
+      <div class="tile"><div class="emoji">📂</div><h3>Dateiname</h3><p>Ein klarer Name, zum Beispiel <strong>Pixel-Paula.png</strong>, hilft dir beim Wiederfinden.</p></div>
+    </div>
+    <h3 style="margin-top:24px">Aufgabe A: Bringe die Schritte in die richtige Reihenfolge</h3>
+    <p>Tippe die vier Kärtchen <strong>nacheinander</strong> an. Sie erscheinen darunter in der gewählten Reihenfolge.</p>
+    <div class="sort-grid" id="sortButtons">
+      <button type="button" class="sort-btn" data-order="2">📁 Den Download in „Dateien“ suchen</button>
+      <button type="button" class="sort-btn" data-order="0">🎨 Den Avatar fertig gestalten</button>
+      <button type="button" class="sort-btn" data-order="3">📝 Das Bild im Steckbrief nutzen</button>
+      <button type="button" class="sort-btn" data-order="1">⬇️ Das PNG-Bild herunterladen</button>
+    </div>
+    <div class="sort-list" id="sortList" aria-live="polite">Hier erscheint deine Reihenfolge …</div>
+    <div class="row"><button type="button" class="btn secondary" id="checkSort">✓ Reihenfolge prüfen</button><button type="button" class="btn soft" id="resetSort">↶ Neu sortieren</button></div>
+    <p id="sort_result" class="feedback" aria-live="polite"></p>
+    <h3 style="margin-top:24px">Aufgabe B: Drei Detektivfragen</h3>
+    <div class="quiz" data-quiz="files">
+      <fieldset class="question"><legend>1. Welche Endung gehört zu einer Bilddatei?</legend><div class="options">
+        <label class="choice"><input type="radio" name="files_q0" value="0"> .txt</label>
+        <label class="choice"><input type="radio" name="files_q0" value="1"> .png</label>
+        <label class="choice"><input type="radio" name="files_q0" value="2"> .exe</label>
+      </div><p class="response" id="files_r0"></p></fieldset>
+      <fieldset class="question"><legend>2. Wo findest du auf dem iPad häufig heruntergeladene Dateien?</legend><div class="options">
+        <label class="choice"><input type="radio" name="files_q1" value="0"> In der App „Dateien“, oft unter „Downloads“</label>
+        <label class="choice"><input type="radio" name="files_q1" value="1"> Nur in der Telefon-App</label>
+        <label class="choice"><input type="radio" name="files_q1" value="2"> Nur in den Kontakten</label>
+      </div><p class="response" id="files_r1"></p></fieldset>
+      <fieldset class="question"><legend>3. Warum ist „Mein-Avatar.png“ ein guter Dateiname?</legend><div class="options">
+        <label class="choice"><input type="radio" name="files_q2" value="0"> Weil der Computer so schneller wird</label>
+        <label class="choice"><input type="radio" name="files_q2" value="1"> Weil niemand das Bild öffnen kann</label>
+        <label class="choice"><input type="radio" name="files_q2" value="2"> Weil ich die Datei später leichter finde</label>
+      </div><p class="response" id="files_r2"></p></fieldset>
+    </div>
+    <button type="button" class="btn secondary" data-check="files">✓ Detektivfragen überprüfen</button>
+    <p id="files_result" class="feedback" aria-live="polite"></p>
+    <div class="info"><strong>Schnell fertig?</strong> Überlege dir zwei weitere passende Dateinamen für deine Bilder. Wann ist ein Name wie „Bild123.png“ unpraktisch?</div>
+    <div class="actions"><a class="btn soft" href="#step2" data-step="2">← Zurück</a><div class="right"><button class="btn green" data-finish="3">Dateidetektiv-Mission fertig →</button></div></div>
+  </section>
+
+  <!-- MISSION 5 -->
+  <section class="panel" id="step4" aria-labelledby="step4title">
+    <div class="chapter"><span class="pill">Mission 5 von 6</span><span class="time">⏱️ 15 Minuten</span></div>
+    <h2 id="step4title">💬 Mein Avatar erlebt ein Abenteuer</h2>
+    <p class="lead">Erfinde einen Mini-Comic in <strong>drei Bildern</strong>. Dein Avatar hat ein Problem, findet eine Idee und erlebt ein Ende. Fülle die Sprechblasen aus.</p>
+    <div class="comic-fields">
+      <div class="field"><label for="comic0">Bild 1 – Was passiert?</label><textarea id="comic0" maxlength="130" placeholder="Oh nein, mein Roboter ist weg!"></textarea></div>
+      <div class="field"><label for="comic1">Bild 2 – Welche Idee hat dein Avatar?</label><textarea id="comic1" maxlength="130" placeholder="Ich suche nach digitalen Spuren!"></textarea></div>
+      <div class="field"><label for="comic2">Bild 3 – Wie endet die Geschichte?</label><textarea id="comic2" maxlength="130" placeholder="Gefunden! Jetzt feiern wir!"></textarea></div>
+    </div>
+    <h3>Deine Comic-Vorschau</h3>
+    <div class="comic" id="comicPreview">
+      <div class="comic-panel"><div class="comic-top">1 · Der Anfang</div><div class="comic-face" id="comicAvatar0"></div><div class="bubble" id="bubble0">Dein Text für Bild 1 …</div></div>
+      <div class="comic-panel"><div class="comic-top">2 · Die Idee</div><div class="comic-face" id="comicAvatar1"></div><div class="bubble" id="bubble1">Dein Text für Bild 2 …</div></div>
+      <div class="comic-panel"><div class="comic-top">3 · Das Ende</div><div class="comic-face" id="comicAvatar2"></div><div class="bubble" id="bubble2">Dein Text für Bild 3 …</div></div>
+    </div>
+    <div class="info"><strong>🌟 Zusatz-Challenge:</strong> Schaffst du eine lustige Geschichte, die gleichzeitig eine wichtige Regel für den Umgang mit dem Internet erklärt?</div>
+    <p id="comic_result" class="feedback" aria-live="polite"></p>
+    <div class="actions"><a class="btn soft" href="#step3" data-step="3">← Zurück</a><div class="right"><button class="btn green" data-finish="4">Comic fertig →</button></div></div>
+  </section>
+
+  <!-- MISSION 6 -->
+  <section class="panel" id="step5" aria-labelledby="step5title">
+    <div class="chapter"><span class="pill">Mission 6 von 6</span><span class="time">⏱️ 10 Minuten</span></div>
+    <h2 id="step5title">🏆 Geschafft? Der Avatar-Abschluss</h2>
+    <p class="lead">Zum Abschluss zeigst du, was du gelernt hast. Danach kannst du deinen Steckbrief und deinen Comic sichern.</p>
+    <div class="grid2">
+      <div>
+        <h3>🎓 Das Abschluss-Quiz</h3>
+        <div class="quiz" data-quiz="final">
+          <fieldset class="question"><legend>1. Ein Avatar ist …</legend><div class="options">
+            <label class="choice"><input type="radio" name="final_q0" value="0"> immer ein echtes Foto</label>
+            <label class="choice"><input type="radio" name="final_q0" value="1"> eine digitale Darstellung oder Figur</label>
+          </div><p class="response" id="final_r0"></p></fieldset>
+          <fieldset class="question"><legend>2. Welche Angabe sollte privat bleiben?</legend><div class="options">
+            <label class="choice"><input type="radio" name="final_q1" value="0"> Meine erfundene Superkraft</label>
+            <label class="choice"><input type="radio" name="final_q1" value="1"> Meine Lieblingsfarbe</label>
+            <label class="choice"><input type="radio" name="final_q1" value="2"> Mein Passwort</label>
+          </div><p class="response" id="final_r1"></p></fieldset>
+          <fieldset class="question"><legend>3. Was hilft beim Wiederfinden einer Bilddatei?</legend><div class="options">
+            <label class="choice"><input type="radio" name="final_q2" value="0"> Ein sinnvoller Dateiname</label>
+            <label class="choice"><input type="radio" name="final_q2" value="1"> Ein möglichst langer Zufallsname</label>
+          </div><p class="response" id="final_r2"></p></fieldset>
+        </div>
+        <button type="button" class="btn secondary" data-check="final">✓ Abschluss-Quiz prüfen</button>
+        <p id="final_result" class="feedback" aria-live="polite"></p>
+        <div class="field" style="margin-top:20px"><label for="reflection">💭 Was hast du heute neu gelernt?</label><textarea id="reflection" maxlength="300" placeholder="Heute habe ich gelernt, dass …"></textarea></div>
+        <p id="finish_result" class="feedback" aria-live="polite"></p>
+      </div>
+      <div>
+        <div class="certificate">
+          <div class="star">🏅</div>
+          <h3 id="certHeading">Deine Avatar-Urkunde</h3>
+          <p>Du hast mit Fantasie gestaltet, über Datenschutz nachgedacht, Dateien kennengelernt und eine Geschichte erfunden.</p>
+          <div class="checklist" id="finalChecklist"></div>
+          <p id="certText" style="font-weight:800">Noch ein paar Aufgaben, dann bist du Avatar-Profi!</p>
+        </div>
+        <div class="info"><strong>📌 So sicherst du deine Arbeit:</strong> Über „Ergebnis drucken / als PDF sichern“ öffnest du den Druckdialog. Auf dem iPad kannst du die Druckvorschau über die Teilen-Funktion als PDF in „Dateien“ speichern. Bei Schul-iPads kann die Bedienung abweichen.</div>
+        <div class="row"><button type="button" class="btn" id="printWork">🖨️ Ergebnis drucken / PDF</button><button type="button" class="btn secondary" id="saveProject">💾 Projektdatei sichern</button><label class="btn soft" for="loadProject" style="cursor:pointer">📂 Projektdatei öffnen</label><input id="loadProject" type="file" accept="application/json,.json" style="position:absolute;opacity:0;width:1px;height:1px"></div>
+      </div>
+    </div>
+    <div class="actions"><a class="btn soft" href="#step4" data-step="4">← Zurück</a><div class="right"><button class="btn green" data-finish="5">🎉 Meine Urkunde freischalten</button></div></div>
+  </section>
+  <footer>
+    <p>Avatar-Mission · Informatik Klasse 5 · 10 + 25 + 15 + 15 + 15 + 10 = 90 Minuten</p>
+    <p>Die sechs Arbeitsblätter lassen sich über die obere Leiste frei anwählen. Alle Aufgaben funktionieren in dieser Datei ohne Internet. Nur die freiwillige externe Avatar-Webseite benötigt Internet.</p>
+    <button class="btn soft" id="resetAll" type="button">🗑️ Alle Eingaben auf diesem Gerät löschen</button>
+  </footer>
+  <details>
+    <summary>👩‍🏫 Hinweise für die Lehrkraft: 90-Minuten-Ablauf</summary>
+    <p><strong>0–10 Min:</strong> Avatar und Schutz persönlicher Daten besprechen; Mini-Quiz. <strong>10–35 Min:</strong> eigenen Avatar in der Webseite gestalten und als PNG sichern (alternativ extern erstellen und importieren). <strong>35–50 Min:</strong> Fantasie-Steckbrief verfassen. <strong>50–65 Min:</strong> Dateiformate und Dateimanagement mit Sortieraufgabe und Quiz. <strong>65–80 Min:</strong> Comic mit drei Sprechblasen. <strong>80–90 Min:</strong> Wiederholungsquiz, Reflexion, Arbeit sichern.</p>
+    <p><strong>Benötigt:</strong> iPad mit Safari oder anderem modernen Browser; Datei kann z. B. über die schulische Lernplattform bereitgestellt werden. <strong>Differenzierung:</strong> schnelle SuS bearbeiten die Zusatz-Challenges; schwächere SuS verwenden kurze Sätze und den integrierten Avatar-Designer. <strong>Datenschutz:</strong> keine Schülerkonten, keine Serverübertragung in dieser Datei; lokale Speicherung im Browser kann auf gemeinsam genutzten iPads verbleiben. Bei Gerätewechsel Projektdatei sichern. Vor Geräteübergabe Eingaben löschen.</p>
+    <p><strong>Quiz-Lösungen:</strong> Mission 1: 2 / 2 / 3. Mission 4: .png / App „Dateien“ / besser wiederfinden; Sortierung: gestalten → herunterladen → Dateien öffnen → im Steckbrief nutzen. Mission 6: digitale Darstellung / Passwort / sinnvoller Dateiname.</p>
+  </details>
+</main>
+
+<!-- Nur beim Drucken sichtbar -->
+<section id="printSheet" aria-label="Druckansicht">
+  <h1>🎨 Meine Avatar-Mission</h1>
+  <div class="print-layout">
+    <div class="print-face" id="printAvatar"></div>
+    <div>
+      <p class="print-item"><span class="print-tag">Name des Avatars:</span> <span id="printName">…</span></p>
+      <p class="print-item"><span class="print-tag">Superkraft:</span> <span id="printPower">…</span></p>
+      <p class="print-item"><span class="print-tag">Hobby:</span> <span id="printHobby">…</span></p>
+      <p class="print-item"><span class="print-tag">Eigenschaften:</span> <span id="printTraits">…</span></p>
+      <p class="print-item"><span class="print-tag">Beschreibung:</span> <span id="printDescription">…</span></p>
+    </div>
+  </div>
+  <h2>Mein Mini-Comic</h2>
+  <div class="print-comic"><div class="print-box"><strong>1 · Anfang</strong><p id="printComic0"></p></div><div class="print-box"><strong>2 · Idee</strong><p id="printComic1"></p></div><div class="print-box"><strong>3 · Ende</strong><p id="printComic2"></p></div></div>
+  <h2>Das habe ich gelernt</h2>
+  <p id="printReflection">…</p>
+  <p class="print-footer">Klasse 5 · Informatik · Avatar-Mission · Erstellt ohne echte personenbezogene Angaben</p>
+</section>
+<div id="statusToast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+'use strict';
+const KEY='avatar-mission-klasse5-v3';
+const DEFAULT=()=>({step:0,designStage:0,completed:[false,false,false,false,false,false],avatar:{skin:1,hairStyle:1,hairColor:1,eyes:0,eyeColor:1,brows:0,mouth:1,shirt:0,outfit:0,bg:0,accessory:0,freckles:0,blush:1,motif:1,shirtCustom:'',sleevesCustom:'',collarCustom:'',motifColor:'#fff2a0'},changed:[],image:null,editMode:'preset',paintData:null,paintBase:'avatar',nickname:'',power:'',hobby:'',traits:[],description:'',comic:['','',''],reflection:'',quiz:{},sort:[],sortCorrect:false});
+let state=DEFAULT();
+try{
+  const saved=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('avatar-mission-klasse5-v2')||localStorage.getItem('avatar-mission-klasse5-v1')||'null');
+  if(saved&&typeof saved==='object') state=sanitizeState(saved);
+}catch(e){}
+function sanitizeState(obj){
+  const d=DEFAULT();
+  const s={...d};
+  s.step=Number.isInteger(obj.step)&&obj.step>=0&&obj.step<6?obj.step:0;
+  s.designStage=Number.isInteger(obj.designStage)&&obj.designStage>=0&&obj.designStage<5?obj.designStage:0;
+  s.completed=Array.isArray(obj.completed)?d.completed.map((_,i)=>obj.completed[i]===true):d.completed;
+  s.avatar={...d.avatar};
+  Object.keys(d.avatar).forEach(k=>{if(Number.isInteger(d.avatar[k])&&Number.isInteger(obj.avatar?.[k]))s.avatar[k]=obj.avatar[k];if(typeof d.avatar[k]==='string'&&typeof obj.avatar?.[k]==='string'&&/^#[0-9a-fA-F]{6}$/.test(obj.avatar[k]))s.avatar[k]=obj.avatar[k]});
+  s.changed=Array.isArray(obj.changed)?obj.changed.filter(x=>Object.prototype.hasOwnProperty.call(d.avatar,x)):[];
+  s.editMode=obj.editMode==='paint'?'paint':'preset';
+  s.paintBase=obj.paintBase==='blank'?'blank':'avatar';
+  s.paintData=typeof obj.paintData==='string'&&/^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(obj.paintData)&&obj.paintData.length<2200000?obj.paintData:null;
+  s.image=typeof obj.image==='string'&&/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(obj.image)&&obj.image.length<1700000?obj.image:null;
+  for(const k of ['nickname','power','hobby','description','reflection'])s[k]=typeof obj[k]==='string'?obj[k].slice(0,330):'';
+  s.traits=Array.isArray(obj.traits)?obj.traits.filter(t=>['mutig','kreativ','hilfsbereit','lustig','neugierig','sportlich'].includes(t)):[];
+  s.comic=Array.isArray(obj.comic)?[0,1,2].map(i=>typeof obj.comic[i]==='string'?obj.comic[i].slice(0,130):''):d.comic;
+  s.quiz=obj.quiz&&typeof obj.quiz==='object'?obj.quiz:{};
+  s.sort=Array.isArray(obj.sort)?obj.sort.filter(i=>Number.isInteger(i)&&i>=0&&i<=3).filter((v,i,a)=>a.indexOf(v)===i):[];
+  s.sortCorrect=obj.sortCorrect===true&&s.sort.join(',')==='0,1,2,3';
+  return s;
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){/* local storage may be unavailable; downloadable project remains possible */}}
+const $=id=>document.getElementById(id);
+const safeText=(v,f='…')=>String(v||'').trim()||f;
+const colors={
+  skin:['#ffe2c8','#eeb88e','#d9a078','#bb805b','#996144','#754a36','#593a2e','#f0caa6'],
+  hairColor:['#2c2732','#714229','#bb7444','#e5b360','#f0d6a1','#ab5549','#8a3f32','#181c28','#7155a6','#33796f'],
+  eyeColor:['#564331','#347f9e','#368363','#815b3d','#797387','#332f30','#73a3b2'],
+  shirt:['#4a78db','#d86a96','#46a48e','#efb34a','#976ad4','#364c6b','#ee7952','#6eaf61','#a44b79','#f2e6dc'],
+  bg:['#e6ecff','#ffe7ed','#d6f4ec','#fff0cc','#efe2ff','#ccebf7','#f7dee1','#e1ecdd']
+};
+const controls=[
+ {key:'skin',title:'Hautfarbe',hint:'Such dir einen Hautton aus.',values:['Porzellan','Hell','Sand','Karamell','Bronze','Braun','Dunkel','Warmbeige'],swatches:colors.skin},
+ {key:'eyes',title:'Augenform',hint:'Tippe auf die Augen, die dir gefallen.',values:['Große Augen','Runde Augen','Schmale Augen','Zwinkern','Lachende Augen','Schläfrig']},
+ {key:'eyeColor',title:'Augenfarbe',hint:'Welche Farbe sollen deine Augen haben?',values:['Braun','Blau','Grün','Haselnuss','Grau','Dunkel','Hellblau'],swatches:colors.eyeColor},
+ {key:'mouth',title:'Mund und Lächeln',hint:'Welcher Gesichtsausdruck passt zu dir?',values:['Lächeln','Zähne zeigen','Staunen','Entspannt','Grinsen','Zunge raus']},
+ {key:'hairStyle',title:'Frisur',hint:'Probiere verschiedene Haare aus. Es gibt viele Möglichkeiten!',values:['Kurz','Lange Wellen','Locken','Hoher Zopf','Dutt','Zöpfe','Seitenscheitel','Pony','Pixie','Ganz kurz','Rastazöpfe','Stachelig','Bob']},
+ {key:'hairColor',title:'Haarfarbe',hint:'Welche Haarfarbe findest du schön?',values:['Dunkelbraun','Braun','Kupfer','Goldblond','Hellblond','Rotbraun','Rot','Schwarz','Lila','Türkis'],swatches:colors.hairColor},
+ {key:'outfit',title:'Kleidung',hint:'Wie ist dein Avatar angezogen?',values:['T-Shirt','Kapuzenpulli','Pullover','Jacke','Hemd','Streifen']},
+ {key:'shirt',title:'Kleidungsfarbe',hint:'Wähle eine Farbe für dein Oberteil.',values:['Blau','Rosa','Türkis','Gelb','Lila','Dunkelblau','Koralle','Grün','Beere','Creme'],swatches:colors.shirt},
+ {key:'bg',title:'Hintergrund',hint:'Welcher Hintergrund soll hinter deinem Avatar zu sehen sein?',values:['Hellblau','Rosa','Mint','Sonne','Flieder','Himmel','Pfirsich','Salbei'],swatches:colors.bg},
+ {key:'accessory',title:'Extras',hint:'Mit einem Extra wird deine Figur noch besonderer.',values:['Keins','Runde Brille','Eckige Brille','Kopfhörer','Kappe','Haarreif','Ohrringe','Sternohrringe','Schal','Haarschleife','Sonnenbrille']},
+ {key:'freckles',title:'Sommersprossen',hint:'Möchtest du Sommersprossen hinzufügen?',values:['Ohne','Mit Sommersprossen']},
+ {key:'brows',title:'Augenbrauen',hint:'Auch die Augenbrauen kannst du verändern.',values:['Natürlich','Gerade','Frech','Kräftig']},
+ {key:'blush',title:'Wangen',hint:'Soll deine Figur rosige Wangen bekommen?',values:['Ohne','Leicht rosa','Kräftig rosa']}
+];
+const designerStages=[
+  {label:'Gesicht',icon:'😊',title:'1. Dein Gesicht',keys:['skin','eyes','eyeColor','mouth']},
+  {label:'Haare',icon:'💇',title:'2. Deine Frisur',keys:['hairStyle','hairColor']},
+  {label:'Kleidung',icon:'👕',title:'3. Kleidung und Farben',keys:['outfit','shirt','bg']},
+  {label:'Extras',icon:'⭐',title:'4. Besondere Extras',keys:['accessory','freckles','brows','blush']},
+  {label:'Fertig',icon:'💾',title:'5. Dein Avatar ist fertig!',keys:[]}
+];
+function setDesignerStage(i){
+  if(i<0||i>=designerStages.length)return;
+  state.designStage=i;
+  buildControls();save();
+}
+function buildControls(){
+  const stage=designerStages[state.designStage]||designerStages[0];
+  const tabs=$('designerSteps');tabs.replaceChildren();
+  designerStages.forEach((item,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='designer-tab';
+    if(i<state.designStage)b.classList.add('done-stage');
+    b.setAttribute('aria-pressed',String(i===state.designStage));
+    b.setAttribute('aria-label',`Schritt ${i+1}: ${item.label}`);
+    const em=document.createElement('span');em.className='tab-icon';em.setAttribute('aria-hidden','true');em.textContent=item.icon;
+    const label=document.createElement('span');label.textContent=item.label;
+    b.append(em,label);b.addEventListener('click',()=>setDesignerStage(i));tabs.appendChild(b);
+  });
+  const target=$('avatarControls');target.replaceChildren();
+  const h=document.createElement('h3');h.className='designer-heading';h.textContent=stage.title;target.appendChild(h);
+  if(state.designStage===4){
+    const done=document.createElement('div');done.className='designer-done';
+    done.innerHTML='<h3>🎉 Dein Avatar ist fertig!</h3><p>Schau dir deine Figur in der großen Vorschau an. Falls du noch etwas ändern möchtest, tippe oben auf „Gesicht“, „Haare“, „Kleidung“ oder „Extras“.</p>';
+    const download=document.createElement('button');download.type='button';download.className='btn green';download.style.width='100%';download.textContent='⬇️ Meinen fertigen Avatar speichern';download.addEventListener('click',downloadAvatar);
+    done.appendChild(download);target.appendChild(done);
+  }
+  for(const key of stage.keys){
+    const c=controls.find(x=>x.key===key);if(!c)continue;
+    const area=document.createElement('section');area.className='designer-group';
+    const heading=document.createElement('h3');heading.textContent=c.title;area.appendChild(heading);
+    const hint=document.createElement('p');hint.className='group-hint';hint.textContent=c.hint;area.appendChild(hint);
+    const group=document.createElement('div');group.className='designer-options';group.setAttribute('role','group');group.setAttribute('aria-label',c.title);
+    c.values.forEach((name,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='avatar-option with-preview';
+      b.dataset.avatarKey=c.key;b.dataset.avatarVal=String(i);
+      b.setAttribute('aria-pressed',String(state.avatar[c.key]===i));
+      b.setAttribute('aria-label',`${c.title}: ${name}`);
+      const preview=document.createElement('div');preview.className='option-preview';preview.setAttribute('aria-hidden','true');
+      preview.innerHTML=svgAvatar({...state.avatar,[c.key]:i,...(c.key==='shirt'?{shirtCustom:''}:{})});
+      b.appendChild(preview);
+      const label=document.createElement('span');label.className='option-label';label.textContent=name;b.appendChild(label);
+      b.addEventListener('click',()=>{
+        state.avatar[c.key]=i;if(c.key==='shirt')state.avatar.shirtCustom='';if(!state.changed.includes(c.key))state.changed.push(c.key);
+        state.image=null;$('uploadInfo').textContent='Du bearbeitest gerade deine Comicfigur.';
+        refreshControlSelection();renderAvatar();
+        $('avatarChangeFeedback').textContent='✅ Geändert: '+c.title+' – '+name+'. Probiere gern weitere Bilder aus!';
+        save();
+      });
+      group.appendChild(b);
+    });area.appendChild(group);target.appendChild(area);
+  }
+  if(state.designStage===2)buildClothingExtras(target);
+  $('editorStatus').textContent=`Schritt ${state.designStage+1} von ${designerStages.length}`;
+  $('editorPrev').disabled=state.designStage===0;
+  $('editorNext').disabled=state.designStage===designerStages.length-1;
+  $('editorNext').textContent=state.designStage===3?'Zum Speichern →':'Weiter →';
+}
+function refreshControlSelection(){
+  document.querySelectorAll('[data-avatar-key]').forEach(b=>{
+    const key=b.dataset.avatarKey,val=Number(b.dataset.avatarVal);
+    b.setAttribute('aria-pressed',String(state.avatar[key]===val));
+    const preview=b.querySelector('.option-preview');
+    if(preview)preview.innerHTML=svgAvatar({...state.avatar,[key]:val,...(key==='shirt'?{shirtCustom:''}:{})});
+  });
+}
+const cap=(k,n,cfg)=>Number.isInteger(cfg[k])&&cfg[k]>=0&&cfg[k]<n?cfg[k]:0;
+const lighten=(hex,m)=>{
+  const rgb=hex.slice(1).match(/../g).map(x=>parseInt(x,16));
+  return '#'+rgb.map(v=>Math.max(0,Math.min(255,v+m)).toString(16).padStart(2,'0')).join('');
+};
+function svgAvatar(config=state.avatar){
+  const skin=colors.skin[cap('skin',colors.skin.length,config)];
+  const hair=colors.hairColor[cap('hairColor',colors.hairColor.length,config)];
+  const eye=colors.eyeColor[cap('eyeColor',colors.eyeColor.length,config)];
+  const isHex=v=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);
+  const shirt=isHex(config.shirtCustom)?config.shirtCustom:colors.shirt[cap('shirt',colors.shirt.length,config)];
+  const sleeves=isHex(config.sleevesCustom)?config.sleevesCustom:lighten(shirt,-18);
+  const collar=isHex(config.collarCustom)?config.collarCustom:lighten(shirt,45);
+  const motifColor=isHex(config.motifColor)?config.motifColor:'#fff2a0';
+  const bg=colors.bg[cap('bg',colors.bg.length,config)];
+  const hs=cap('hairStyle',13,config), eyes=cap('eyes',6,config), mouth=cap('mouth',6,config);
+  const outfit=cap('outfit',6,config),acc=cap('accessory',11,config),freck=cap('freckles',2,config),brows=cap('brows',4,config),blush=cap('blush',3,config),motif=cap('motif',7,config);
+  const deep=lighten(hair,-28),shine=lighten(hair,28),skinShade=lighten(skin,-19),lip=lighten(skin,-78);
+  const behind=[];const front=[];
+  const longBase=`<path d="M116 142 Q109 69 207 68 Q316 66 310 160 L324 326 Q294 346 268 315 L153 315 Q118 348 94 321Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`;
+  if([1,3,5,10,12].includes(hs))behind.push(longBase);
+  if(hs===2||hs===4)behind.push(`<g fill="${hair}" stroke="${deep}" stroke-width="3"><circle cx="116" cy="134" r="43"/><circle cx="301" cy="136" r="43"/><circle cx="105" cy="204" r="31"/><circle cx="313" cy="204" r="31"/></g>`);
+  if(hs===3)behind.push(`<path d="M288 125 Q359 124 345 218 Q324 280 302 305 Q319 211 276 176Z" fill="${deep}"/><path d="M286 130 Q349 119 333 224 Q320 258 302 279" fill="none" stroke="${hair}" stroke-width="25" stroke-linecap="round"/>`);
+  if(hs===4)behind.push(`<circle cx="291" cy="82" r="52" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===5)behind.push(`<g stroke="${deep}" stroke-width="4"><path d="M109 160 Q70 210 100 311 Q139 354 145 290 L142 169Z" fill="${hair}"/><path d="M291 154 Q342 213 319 312 Q284 347 274 287Z" fill="${hair}"/></g>`);
+  if(hs===10){for(let i=0;i<11;i++){const x=104+i*20;const end=285+(i%3)*16;behind.push(`<path d="M${x} 143 Q${x-16} 229 ${x} ${end}" fill="none" stroke="${deep}" stroke-width="17" stroke-linecap="round"/><path d="M${x} 143 Q${x-14} 228 ${x} ${end}" fill="none" stroke="${hair}" stroke-width="12" stroke-linecap="round"/>`);}}
+  if(hs===0)front.push(`<path d="M112 183 Q99 91 184 81 Q276 59 311 153 Q295 139 285 122 Q252 151 197 127 Q155 152 112 183Z" fill="${hair}" stroke="${deep}" stroke-width="3"/><path d="M155 111 Q195 76 260 108" stroke="${shine}" stroke-width="8" fill="none" stroke-linecap="round" opacity=".55"/>`);
+  if(hs===1)front.push(`<path d="M110 194 Q91 71 204 73 Q316 70 313 192 Q290 155 274 120 Q247 156 198 138 Q161 169 134 142Z" fill="${hair}" stroke="${deep}" stroke-width="3"/><path d="M130 167 Q123 237 115 302 M289 167 Q300 232 301 300" fill="none" stroke="${shine}" opacity=".56" stroke-width="11" stroke-linecap="round"/>`);
+  if(hs===2)front.push(`<g fill="${hair}" stroke="${deep}" stroke-width="2"><circle cx="126" cy="124" r="40"/><circle cx="159" cy="94" r="40"/><circle cx="202" cy="84" r="47"/><circle cx="251" cy="91" r="43"/><circle cx="283" cy="125" r="39"/><circle cx="306" cy="162" r="30"/></g>`);
+  if(hs===3)front.push(`<path d="M112 169 Q105 78 214 77 Q306 82 309 173 Q288 141 285 115 Q232 145 172 128 Q142 150 112 169Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===4)front.push(`<path d="M111 179 Q100 77 209 82 Q303 83 310 177 Q283 150 271 124 Q208 163 145 122Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===5)front.push(`<path d="M109 175 Q107 81 203 77 Q296 75 312 181 Q278 150 263 124 Q211 154 162 129Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===6)front.push(`<path d="M111 180 Q89 74 210 77 Q309 67 314 182 Q283 144 275 116 Q237 105 205 125 Q161 151 112 180Z" fill="${hair}" stroke="${deep}" stroke-width="3"/><path d="M205 80 Q201 139 123 177" fill="none" stroke="${shine}" stroke-width="10" opacity=".5"/>`);
+  if(hs===7)front.push(`<path d="M110 170 Q105 77 207 76 Q304 76 312 171 Q293 147 278 145 L273 173 Q257 153 242 174 L219 175 L204 153 Q174 182 155 171 L137 156 Q127 165 110 170Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===8)front.push(`<path d="M114 177 Q88 91 167 79 Q273 49 307 149 L278 142 L267 119 Q206 143 173 107 Q163 155 114 177Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  if(hs===9)front.push(`<path d="M119 158 Q112 85 213 88 Q297 88 303 159 Q276 103 210 109 Q145 109 119 158Z" fill="${hair}" stroke="${deep}" stroke-width="2"/>`);
+  if(hs===10){front.push(`<path d="M113 160 Q105 78 211 75 Q314 78 312 164 Q275 123 217 119 Q157 126 113 160Z" fill="${hair}" stroke="${deep}" stroke-width="3"/>`);}
+  if(hs===11)front.push(`<path d="M112 172 L117 112 L142 125 L153 76 L181 103 L213 67 L234 101 L272 78 L286 122 L309 112 L307 169 Q279 133 243 121 Q170 122 112 172Z" fill="${hair}" stroke="${deep}" stroke-width="4" stroke-linejoin="round"/>`);
+  if(hs===12)front.push(`<path d="M107 164 Q100 74 210 75 Q314 74 312 166 L313 282 L288 292 L286 177 Q266 149 253 121 Q202 150 160 127 Q140 160 135 179 L137 292 L110 288Z" fill="${hair}" stroke="${deep}" stroke-width="4"/>`);
+  const eyebrowStyles=[
+   `<path d="M149 172 Q168 161 187 170 M233 170 Q255 160 273 172"/>`,
+   `<path d="M150 168 L187 170 M235 170 L273 168"/>`,
+   `<path d="M148 167 Q170 153 188 169 M233 169 Q251 152 274 167"/>`,
+   `<path d="M149 171 Q169 157 189 168 M232 168 Q253 157 274 171" stroke-width="8"/>`
+  ];
+  const eyeOne=(x,i)=>{
+    if(i===4)return `<path d="M${x-21} 204 Q${x} 226 ${x+22} 203" stroke="#3d3037" stroke-width="6" stroke-linecap="round" fill="none"/>`;
+    if(i===3&&x===169)return `<path d="M${x-20} 208 Q${x} 192 ${x+21} 206" stroke="#3d3037" stroke-width="6" stroke-linecap="round" fill="none"/>`;
+    if(i===5)return `<path d="M${x-25} 196 Q${x} 178 ${x+25} 197 L${x+21} 212 Q${x} 218 ${x-21} 211Z" fill="#fffaf7" stroke="#4a353a" stroke-width="3"/><circle cx="${x}" cy="205" r="10" fill="${eye}"/><circle cx="${x}" cy="205" r="5" fill="#20212b"/><path d="M${x-24} 197 Q${x} 188 ${x+24} 197" stroke="#3b3035" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+    const rx=i===1?26:i===2?24:26, ry=i===1?18:i===2?12:16;
+    return `<ellipse cx="${x}" cy="203" rx="${rx}" ry="${ry}" fill="#fffefa" stroke="#4b343a" stroke-width="3"/><circle cx="${x}" cy="205" r="${i===1?13:12}" fill="${eye}"/><circle cx="${x}" cy="205" r="6" fill="#20242c"/><circle cx="${x-4}" cy="200" r="4.3" fill="white"/><path d="M${x-rx} 198 Q${x} ${i===2?188:183} ${x+rx} 198" fill="none" stroke="#373139" stroke-width="4" stroke-linecap="round"/>`;
+  };
+  const mouths=[
+   `<path d="M179 254 Q210 281 242 254" fill="none" stroke="${lip}" stroke-width="5" stroke-linecap="round"/>`,
+   `<path d="M174 251 Q210 295 247 251 Q210 272 174 251Z" fill="#fffaf8" stroke="${lip}" stroke-width="5" stroke-linejoin="round"/>`,
+   `<ellipse cx="211" cy="262" rx="13" ry="18" fill="#8c4851"/><ellipse cx="210" cy="269" rx="8" ry="5" fill="#d98b94"/>`,
+   `<path d="M191 258 Q211 261 229 257" fill="none" stroke="${lip}" stroke-width="4" stroke-linecap="round"/>`,
+   `<path d="M176 248 Q210 296 248 248 Q231 281 210 282 Q189 281 176 248Z" fill="#682f3d"/><path d="M185 255 Q211 270 239 254" stroke="#fff" stroke-width="11" stroke-linecap="round" fill="none"/>`,
+   `<path d="M179 253 Q210 283 245 253" fill="none" stroke="${lip}" stroke-width="5"/><ellipse cx="212" cy="274" rx="11" ry="8" fill="#ef8b9d"/>`
+  ];
+  const clothes=[
+   `<path d="M164 335 L188 347 Q210 359 233 347 L257 334" fill="none" stroke="#fefefe" stroke-opacity=".75" stroke-width="7"/>`,
+   `<path d="M155 328 Q207 376 265 328 M194 351 Q188 383 191 402 M230 351 Q237 382 229 402" fill="none" stroke="${lighten(shirt,-30)}" stroke-width="11" stroke-linecap="round"/><path d="M175 385Q209 402 244 385" fill="none" stroke="${lighten(shirt,-30)}" stroke-width="3"/>`,
+   `<path d="M170 342 Q210 366 253 342" fill="none" stroke="${lighten(shirt,-24)}" stroke-width="8"/><g stroke="${lighten(shirt,23)}" stroke-width="4" opacity=".8"><path d="M116 385 L155 373 M268 374 L308 385"/></g>`,
+   `<path d="M157 331L190 420M264 332L232 420" fill="none" stroke="${lighten(shirt,-47)}" stroke-width="18"/><path d="M203 352V420" stroke="#fff8" stroke-width="3"/><circle cx="204" cy="385" r="4" fill="#efefef"/>`,
+   `<path d="M172 334 L205 360 L209 335 L214 361 L245 333" fill="#fff" stroke="${lighten(shirt,-28)}" stroke-width="4"/><path d="M210 357V416" stroke="${lighten(shirt,-35)}" stroke-width="3"/><circle cx="218" cy="387" r="3" fill="${lighten(shirt,-35)}"/>`,
+   `<path d="M94 380Q208 356 326 380M92 406Q207 386 328 406" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="11"/>`
+  ];
+  const accessories=[
+    '',
+    `<g fill="none" stroke="#4b4755" stroke-width="5"><circle cx="169" cy="205" r="32"/><circle cx="251" cy="205" r="32"/><path d="M201 204 Q210 197 219 204 M137 205 L119 197 M284 205 L305 198"/></g>`,
+    `<g fill="none" stroke="#434554" stroke-width="6" stroke-linejoin="round"><rect x="138" y="177" width="65" height="55" rx="10"/><rect x="219" y="177" width="65" height="55" rx="10"/><path d="M203 199 L219 199 M138 195 L119 188 M284 195 L305 188"/></g>`,
+    `<path d="M110 205 Q102 83 210 80 Q318 80 311 206" fill="none" stroke="#474d6e" stroke-width="19"/><rect x="96" y="182" width="33" height="69" rx="12" fill="#5968ae"/><rect x="291" y="182" width="33" height="69" rx="12" fill="#5968ae"/>`,
+    `<path d="M108 147 Q105 45 210 47 Q316 49 315 150Z" fill="#4f74c8" stroke="#294b9a" stroke-width="5"/><path d="M114 147 Q218 162 329 145" fill="none" stroke="#294b9a" stroke-width="17" stroke-linecap="round"/>`,
+    `<path d="M114 142 Q209 67 309 142" fill="none" stroke="#cb78ab" stroke-width="10"/><circle cx="298" cy="119" r="11" fill="#efb7d4"/>`,
+    `<g fill="#f5c35a" stroke="#ba8c32" stroke-width="2"><circle cx="116" cy="240" r="9"/><circle cx="305" cy="240" r="9"/></g>`,
+    `<g fill="#f4bd5c"><path d="M115 231L120 242L132 243L124 251L127 263L115 257L103 263L106 251L98 243L110 242Z"/><path d="M305 231L310 242L322 243L314 251L317 263L305 257L293 263L296 251L288 243L300 242Z"/></g>`,
+    `<path d="M138 336 Q209 365 279 336 L290 379 Q213 413 125 377Z" fill="#e0a1c5" stroke="#ad709e" stroke-width="5"/><path d="M234 380L270 418" fill="none" stroke="#d08bb3" stroke-width="18"/>`,
+    `<g fill="#f2a6bc" stroke="#c97496" stroke-width="3"><ellipse cx="267" cy="110" rx="29" ry="13" transform="rotate(25 267 110)"/><ellipse cx="299" cy="111" rx="28" ry="13" transform="rotate(-23 299 111)"/><circle cx="283" cy="116" r="10"/></g>`,
+    `<g fill="#282b39" stroke="#424354" stroke-width="5"><path d="M134 189 Q169 178 200 189 L197 224 Q168 237 142 222Z"/><path d="M219 189 Q250 178 284 189 L278 223 Q250 237 223 224Z"/><path d="M200 194Q211 189 220 194" fill="none"/></g>`
+  ];
+  const cheekPaint=blush?`<g fill="#f06d98" opacity="${blush===1?.25:.49}"><ellipse cx="150" cy="243" rx="18" ry="9"/><ellipse cx="270" cy="243" rx="18" ry="9"/></g>`:'';
+  const outfitMotifs=[
+    '',
+    `<path d="M210 363L219 380L239 383L225 397L228 415L210 405L192 415L195 397L181 383L201 380Z" fill="${motifColor}" stroke="${lighten(motifColor,-28)}" stroke-width="2"/>`,
+    `<path d="M210 406 Q176 386 185 373 Q194 362 210 376 Q226 361 235 374 Q245 387 210 406Z" fill="${motifColor}"/>`,
+    `<path d="M220 362L197 388H214L204 413L235 380H216Z" fill="${motifColor}"/>`,
+    `<circle cx="210" cy="389" r="25" fill="${motifColor}"/><path d="M197 392Q210 404 223 392" fill="none" stroke="#6e4a42" stroke-width="4" stroke-linecap="round"/><circle cx="201" cy="380" r="3" fill="#6e4a42"/><circle cx="219" cy="380" r="3" fill="#6e4a42"/>`,
+    `<path d="M176 405Q179 380 194 381Q199 358 210 378Q224 353 232 382Q251 375 246 407" fill="none" stroke="${motifColor}" stroke-width="9" stroke-linecap="round"/>`,
+    `<ellipse cx="211" cy="396" rx="15" ry="13" fill="${motifColor}"/><circle cx="193" cy="378" r="6" fill="${motifColor}"/><circle cx="204" cy="371" r="6" fill="${motifColor}"/><circle cx="219" cy="371" r="6" fill="${motifColor}"/><circle cx="231" cy="379" r="6" fill="${motifColor}"/>`
+  ];
+  const sleevesSvg=`<path d="M149 324Q95 338 69 415L144 420L171 337Z" fill="${sleeves}" opacity=".92"/><path d="M266 326Q326 350 352 416L279 420L245 337Z" fill="${sleeves}" opacity=".92"/>`;
+  const collarSvg=`<path d="M174 333 Q211 365 247 332" fill="none" stroke="${collar}" stroke-width="12" stroke-linecap="round"/>`;
+  const freckles=freck?`<g fill="${lighten(skin,-67)}" opacity=".54"><circle cx="143" cy="237" r="3"/><circle cx="154" cy="240" r="3"/><circle cx="166" cy="237" r="2.5"/><circle cx="254" cy="237" r="2.5"/><circle cx="267" cy="240" r="3"/><circle cx="279" cy="237" r="3"/></g>`:'';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420" role="img" aria-label="Gestalteter Comic-Avatar"><rect width="420" height="420" rx="24" fill="${bg}"/><circle cx="351" cy="77" r="74" fill="white" opacity=".27"/><circle cx="57" cy="363" r="70" fill="white" opacity=".22"/><path d="M68 421Q80 342 152 322L177 309L244 309L273 324Q342 344 355 421Z" fill="${shirt}" stroke="${lighten(shirt,-36)}" stroke-width="5"/>${sleevesSvg}${outfitMotifs[motif]}<path d="M185 279L178 334Q209 354 242 334L237 279Z" fill="${skin}" stroke="${skinShade}" stroke-width="3"/>${clothes[outfit]}${collarSvg}${behind.join('')}<ellipse cx="115" cy="216" rx="18" ry="30" fill="${skin}" stroke="${skinShade}" stroke-width="3"/><ellipse cx="304" cy="216" rx="18" ry="30" fill="${skin}" stroke="${skinShade}" stroke-width="3"/><path d="M210 92C143 91 115 141 116 210C116 281 151 316 209 321C269 316 304 281 304 210C305 136 278 91 210 92Z" fill="${skin}" stroke="${skinShade}" stroke-opacity=".6" stroke-width="4"/><path d="M144 227Q160 221 177 228M246 228Q263 222 279 227" fill="none" stroke="#e4798a" stroke-opacity=".22" stroke-width="14" stroke-linecap="round"/>${cheekPaint}<g fill="none" stroke="${deep}" stroke-width="5" stroke-linecap="round">${eyebrowStyles[brows]}</g>${eyeOne(169,eyes)}${eyeOne(251,eyes)}<path d="M209 212Q201 234 214 237" stroke="${skinShade}" stroke-width="3.5" stroke-linecap="round" fill="none"/>${freckles}${mouths[mouth]}${front.join('')}${accessories[acc]}<path d="M105 416 Q208 393 317 416" fill="none" stroke="#fff" stroke-width="4" opacity=".27"/></svg>`;
+}
+function baseAvatarContent(){
+  if(state.paintBase==='blank')return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420"><rect width="420" height="420" fill="#fffdf9"/></svg>';
+  return state.image?`<img src="${state.image}" alt="Dein Avatar">`:svgAvatar();
+}
+function avatarContent(){
+  const base=baseAvatarContent();
+  return state.paintData?`<div class="portrait-stack">${base}<img class="paint-overlay" src="${state.paintData}" alt="Selbst gemalte Ergänzungen"></div>`:base;
+}
+function buildClothingExtras(target){
+  const lab=document.createElement('section');lab.className='color-lab';
+  lab.innerHTML=`<h3>🌈 Male dein T-Shirt selbst bunt!</h3><p>Die Farben werden direkt auf deiner Figur sichtbar. Oberteil und Ärmel dürfen unterschiedlich aussehen.</p><div class="custom-colors"><label class="custom-color-row">👕 T-Shirt-Mitte <input id="shirtPicker" type="color" aria-label="Farbe der T-Shirt-Mitte"></label><label class="custom-color-row">🧥 Ärmel <input id="sleevesPicker" type="color" aria-label="Farbe der Ärmel"></label><label class="custom-color-row">🎀 Kragen <input id="collarPicker" type="color" aria-label="Farbe des Kragens"></label></div><h3 style="margin-top:17px">✨ Mein eigenes T-Shirt-Motiv</h3><p>Tippe auf ein Motiv. Es erscheint auf deinem Shirt.</p><div class="motif-choices" id="motifChoices"></div><label class="paint-custom-label" for="motifPicker">Motivfarbe <input id="motifPicker" type="color" aria-label="Farbe des T-Shirt-Motivs"></label>`;
+  target.append(lab);
+  const colorEditors=[['shirtPicker','shirtCustom',colors.shirt[cap('shirt',colors.shirt.length,state.avatar)]],['sleevesPicker','sleevesCustom','#31569a'],['collarPicker','collarCustom','#f8e9dc'],['motifPicker','motifColor','#fff2a0']];
+  colorEditors.forEach(([id,key,fallback])=>{
+    const picker=$(id);picker.value=state.avatar[key]||fallback;
+    picker.addEventListener('input',()=>{state.avatar[key]=picker.value;if(!state.changed.includes(key))state.changed.push(key);renderAvatar();$('avatarChangeFeedback').textContent='🎨 Deine neue Farbe ist auf dem Avatar zu sehen!';save();});
+  });
+  const icons=['🚫','⭐','❤️','⚡','😊','🌈','🐾'];const names=['Ohne','Stern','Herz','Blitz','Smiley','Regenbogen','Pfoten'];
+  icons.forEach((icon,i)=>{
+    const b=document.createElement('button');b.className='motif-choice';b.type='button';b.setAttribute('aria-pressed',String(state.avatar.motif===i));b.innerHTML=`<span aria-hidden="true">${icon}</span>${names[i]}`;
+    b.addEventListener('click',()=>{state.avatar.motif=i;if(!state.changed.includes('motif'))state.changed.push('motif');lab.querySelectorAll('.motif-choice').forEach((el,j)=>el.setAttribute('aria-pressed',String(i===j)));renderAvatar();save()});
+    $('motifChoices').append(b);
+  });
+}
+function renderAvatar(){
+  const content=avatarContent();
+  ['avatarDisplay','profileAvatar','comicAvatar0','comicAvatar1','comicAvatar2','printAvatar'].forEach(id=>{$(id).innerHTML=content;});
+}
+function renderProfile(){
+  const fieldIDs=['nickname','power','hobby','description'];
+  fieldIDs.forEach(k=>{if($(k).value!==state[k])$(k).value=state[k];});
+  $('profileName').textContent=safeText(state.nickname,'Mein Avatar');
+  $('profilePower').textContent=safeText(state.power);
+  $('profileHobby').textContent=safeText(state.hobby);
+  $('profileTraits').textContent=state.traits.length?state.traits.join(', '):'…';
+  $('profileDescription').textContent=safeText(state.description);
+  $('traitControls').querySelectorAll('input').forEach(i=>{i.checked=state.traits.includes(i.value)});
+  $('printName').textContent=safeText(state.nickname);
+  $('printPower').textContent=safeText(state.power);
+  $('printHobby').textContent=safeText(state.hobby);
+  $('printTraits').textContent=state.traits.join(', ')||'…';
+  $('printDescription').textContent=safeText(state.description);
+}
+function renderComic(){
+  for(let i=0;i<3;i++){
+    if($('comic'+i).value!==state.comic[i])$('comic'+i).value=state.comic[i];
+    $('bubble'+i).textContent=safeText(state.comic[i],`Dein Text für Bild ${i+1} …`);
+    $('printComic'+i).textContent=safeText(state.comic[i]);
+  }
+}
+function renderSort(){
+  const labels=['🎨 Avatar gestalten','⬇️ PNG herunterladen','📁 Download in „Dateien“ suchen','📝 Bild im Steckbrief nutzen'];
+  const box=$('sortList');box.replaceChildren();
+  if(!state.sort.length)box.textContent='Hier erscheint deine Reihenfolge …';
+  else {const ol=document.createElement('ol');state.sort.forEach(i=>{const li=document.createElement('li');li.textContent=labels[i];ol.appendChild(li)});box.appendChild(ol)}
+  document.querySelectorAll('.sort-btn').forEach(b=>b.disabled=state.sort.includes(Number(b.dataset.order)));
+}
+function showResult(id,message,good){const el=$(id);el.textContent=message;el.className='feedback show '+(good?'good':'bad');}
+function clearResult(id){const el=$(id);el.textContent='';el.className='feedback';}
+const QUIZZES={
+  safety:{answers:[1,1,2],correct:['Ein Avatar ist eine digitale Figur.','Ein Fantasiename schützt deine Identität.','Deine Adresse ist privat.']},
+  files:{answers:[1,0,2],correct:['.png steht für ein Bildformat.','Auf vielen iPads findest du Downloads in der App „Dateien“.','Sinnvolle Dateinamen sind leichter wiederzufinden.']},
+  final:{answers:[1,2,0],correct:['Ein Avatar ist eine digitale Darstellung.','Passwörter müssen geheim bleiben.','Klar benannte Dateien findest du schneller.']}
+};
+function quizCheck(group){
+  const q=QUIZZES[group];let correct=0,missing=0;
+  q.answers.forEach((answer,i)=>{
+    const chosen=state.quiz[`${group}_q${i}`];
+    const out=$(`${group}_r${i}`);
+    if(chosen===undefined){out.textContent='Wähle noch eine Antwort aus.';out.className='response bad';missing++;}
+    else if(Number(chosen)===answer){out.textContent='✓ Richtig! '+q.correct[i];out.className='response good';correct++;}
+    else{out.textContent='✗ Das passt noch nicht. Lies die Infokästen und versuche es erneut.';out.className='response bad';}
+  });
+  const all=correct===q.answers.length;
+  showResult(group+'_result',all?'🎉 Prima! Alles richtig.':missing?`Du hast noch ${missing} Frage(n) offen. Du kannst die Antworten jederzeit ändern.`:`${correct} von ${q.answers.length} richtig. Verbessere die rot markierten Antworten.`,all);
+  return all;
+}
+function profileCheck(){
+  const problems=[];
+  if(state.nickname.trim().length<2)problems.push('einen Fantasienamen (mindestens 2 Zeichen)');
+  if(!state.power)problems.push('eine Superkraft');
+  if(state.hobby.trim().length<2)problems.push('ein Hobby');
+  if(state.traits.length<2)problems.push('mindestens zwei Eigenschaften');
+  if(state.description.trim().length<12)problems.push('einen Vorstellungssatz (mindestens 12 Zeichen)');
+  const all=problems.length===0;
+  showResult('profile_result',all?'🌟 Dein Steckbrief ist vollständig und gut lesbar!':'Es fehlt noch: '+problems.join(', ')+'.',all);
+  return all;
+}
+function sortCheck(){
+  state.sortCorrect=state.sort.join(',')==='0,1,2,3';
+  showResult('sort_result',state.sortCorrect?'✓ Super! So ist die Reihenfolge richtig.':state.sort.length<4?'Wähle erst alle vier Kärtchen aus.':'Die Reihenfolge stimmt noch nicht. Nutze „Neu sortieren“ und versuche es erneut.',state.sortCorrect);
+  save();return state.sortCorrect;
+}
+function finishStep(i){
+  let pass=false;
+  if(i===0)pass=quizCheck('safety');
+  if(i===1){pass=state.changed.length>=3||!!state.image;showResult('design_result',pass?'Toll! Du hast deine eigene Figur gestaltet. Denk daran, sie als PNG zu speichern.':`Ändere noch weitere Merkmale deiner Figur. Bisher geändert: ${state.changed.length} von 3.`,pass);}
+  if(i===2)pass=profileCheck();
+  if(i===3){const sorting=sortCheck(),questions=quizCheck('files');pass=sorting&&questions;}
+  if(i===4){pass=state.comic.every(x=>x.trim().length>=5);showResult('comic_result',pass?'Klasse! Dein Comic hat einen Anfang, eine Idee und ein Ende.':'Schreibe in alle drei Sprechblasen mindestens ein paar Wörter.',pass);}
+  if(i===5){const q=quizCheck('final'),r=state.reflection.trim().length>=10;pass=q&&r;showResult('finish_result',pass?'🏆 Volltreffer! Du bist Avatar-Profi.':r?'Das Quiz muss noch vollständig richtig sein.':'Schreibe noch einen Satz darüber, was du gelernt hast.',pass);}
+  if(!pass){toast('Diese Mission hat noch eine kleine Aufgabe.');return;}
+  state.completed[i]=true;save();renderProgress();
+  if(i<5){toast(`🎉 Mission ${i+1} geschafft!`);openStep(i+1)}else{toast('🏆 Alle Aufgaben dieser Abschlussmission geschafft!');}
+}
+function renderProgress(){
+  const done=state.completed.filter(Boolean).length;
+  $('progressText').textContent=`${done} von 6 Missionen geschafft`;
+  $('progressBar').style.width=(done/6*100)+'%';
+  $('progressMeter').setAttribute('aria-valuenow',String(done));
+  document.querySelectorAll('nav [data-step]').forEach((b,i)=>{b.classList.toggle('done',state.completed[i]);b.setAttribute('aria-current',i===state.step?'step':'false')});
+  const checklist=$('finalChecklist');checklist.replaceChildren();
+  ['Sicher starten','Avatar gestalten','Steckbrief','Dateidetektive','Mini-Comic','Abschluss'].forEach((name,i)=>{
+    const div=document.createElement('div');div.className='task '+(state.completed[i]?'yes':'');
+    const mark=document.createElement('span');mark.className='tick';mark.textContent=state.completed[i]?'✓':String(i+1);
+    div.append(mark,document.createTextNode(name));checklist.appendChild(div);
+  });
+  const all=done===6;
+  $('certHeading').textContent=all?'🏆 Avatar-Profi!':'Deine Avatar-Urkunde';
+  $('certText').textContent=all?`Super gemacht, ${safeText(state.nickname,'Avatar-Profi')}! Alle sechs Missionen geschafft!`:'Noch ein paar Aufgaben, dann bist du Avatar-Profi!';
+}
+function openStep(i){
+  if(i<0||i>5)return;
+  document.documentElement.classList.remove('show-all');
+  $('teacherPreview').setAttribute('aria-pressed','false');
+  $('teacherPreview').textContent='👩‍🏫 Alle 6 ABs auf einmal ansehen';
+  state.step=i;save();
+  document.querySelectorAll('.panel').forEach((p,idx)=>{p.classList.toggle('active',idx===i)});
+  renderProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelector('nav').setAttribute('aria-label',`Mission ${i+1} geöffnet – weitere Missionen auswählen`);
+}
+let toastTimer;
+function toast(msg){const el=$('statusToast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
+function cleanFilename(name){return (name||'mein-avatar').trim().toLowerCase().replace(/[^a-z0-9äöüß_-]+/gi,'-').replace(/-+/g,'-').slice(0,45)||'mein-avatar';}
+function downloadBlob(blob,filename){
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+
+const paintCanvas=$('paintCanvas'),paintCtx=paintCanvas.getContext('2d');
+let paintMode='draw',paintColor='#e94480',paintWidth=9,painting=false,paintUndoStack=[];
+const brushColors=['#e94480','#f34a40','#f5a524','#ffd94d','#42b883','#2588e5','#7959de','#30343c','#ffffff','#a26341'];
+function setEditMode(mode){
+  state.editMode=mode==='paint'?'paint':'preset';
+  $('modePreset').setAttribute('aria-pressed',String(state.editMode==='preset'));
+  $('modePaint').setAttribute('aria-pressed',String(state.editMode==='paint'));
+  $('presetPanel').hidden=state.editMode==='paint';$('paintPanel').hidden=state.editMode!=='paint';
+  if(state.editMode==='paint')refreshPaintScene();
+  save();
+}
+function refreshPaintScene(){
+  $('paintBase').innerHTML=baseAvatarContent();
+  document.querySelectorAll('[data-paint-base]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.paintBase===state.paintBase)));
+  paintCtx.clearRect(0,0,420,420);
+  if(state.paintData){const pic=new Image();pic.onload=()=>{paintCtx.clearRect(0,0,420,420);paintCtx.drawImage(pic,0,0,420,420)};pic.src=state.paintData;}
+}
+function paintSave(){try{state.paintData=paintCanvas.toDataURL('image/png')}catch(e){toast('Zeichnung konnte nicht gespeichert werden.');return;}renderAvatar();save();}
+function paintCoord(e){const r=paintCanvas.getBoundingClientRect();return {x:(e.clientX-r.left)*420/r.width,y:(e.clientY-r.top)*420/r.height};}
+function markPaintTool(){
+  $('paintPen').setAttribute('aria-pressed',String(paintMode==='draw'));$('paintEraser').setAttribute('aria-pressed',String(paintMode==='erase'));
+  document.querySelectorAll('.paint-color').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===paintColor)));
+  document.querySelectorAll('.paint-size').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.size)===paintWidth)));
+}
+function setBrushMode(mode){paintMode=mode;markPaintTool();$('paintMessage').textContent=mode==='erase'?'🧽 Radierer aktiv. Wische mit deinem Finger über deine Zeichnung.':'✏️ Stift aktiv. Male mit deinem Finger oder Apple Pencil.';}
+function paintSegment(from,to){
+  paintCtx.save();paintCtx.globalCompositeOperation=paintMode==='erase'?'destination-out':'source-over';paintCtx.strokeStyle=paintColor;paintCtx.fillStyle=paintColor;paintCtx.lineWidth=paintWidth;paintCtx.lineJoin='round';paintCtx.lineCap='round';
+  paintCtx.beginPath();paintCtx.moveTo(from.x,from.y);paintCtx.lineTo(to.x,to.y);paintCtx.stroke();
+  if(from.x===to.x&&from.y===to.y){paintCtx.beginPath();paintCtx.arc(to.x,to.y,paintWidth/2,0,Math.PI*2);paintCtx.fill();}
+  paintCtx.restore();
+}
+let lastPoint=null;
+paintCanvas.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  e.preventDefault();paintUndoStack.push(paintCanvas.toDataURL('image/png'));if(paintUndoStack.length>15)paintUndoStack.shift();
+  paintCanvas.setPointerCapture?.(e.pointerId);painting=true;lastPoint=paintCoord(e);paintSegment(lastPoint,lastPoint);
+});
+paintCanvas.addEventListener('pointermove',e=>{if(!painting)return;e.preventDefault();const p=paintCoord(e);paintSegment(lastPoint,p);lastPoint=p;});
+const finishPainting=e=>{if(!painting)return;e.preventDefault();painting=false;lastPoint=null;paintSave();$('paintMessage').textContent='✅ Deine Zeichnung wurde übernommen! Du kannst weiter malen.';};
+paintCanvas.addEventListener('pointerup',finishPainting);paintCanvas.addEventListener('pointercancel',finishPainting);
+function setupPaintControls(){
+  $('paintColors').replaceChildren();brushColors.forEach((color,i)=>{const b=document.createElement('button');b.type='button';b.className='paint-color';b.style.background=color;b.dataset.color=color;b.setAttribute('aria-label',`Malfarbe ${i+1}`);b.title=`Farbe ${i+1}`;b.addEventListener('click',()=>{paintColor=color;paintMode='draw';markPaintTool()});$('paintColors').append(b)});
+  $('paintSizes').replaceChildren();[4,9,16,26].forEach(n=>{const b=document.createElement('button');b.type='button';b.className='paint-size';b.dataset.size=String(n);b.innerHTML=`<span class="dot" style="width:${n}px;height:${n}px"></span>${n===4?'Fein':n===9?'Normal':n===16?'Dick':'Extra'}`;b.addEventListener('click',()=>{paintWidth=n;markPaintTool()});$('paintSizes').append(b)});
+  $('paintPen').addEventListener('click',()=>setBrushMode('draw'));$('paintEraser').addEventListener('click',()=>setBrushMode('erase'));
+  $('paintCustomColor').addEventListener('input',e=>{paintColor=e.target.value;paintMode='draw';markPaintTool()});
+  $('paintUndo').addEventListener('click',()=>{const prev=paintUndoStack.pop();if(!prev){toast('Noch nichts zum Rückgängigmachen.');return;}const img=new Image();img.onload=()=>{paintCtx.clearRect(0,0,420,420);paintCtx.drawImage(img,0,0,420,420);paintSave()};img.src=prev;});
+  $('paintClear').addEventListener('click',()=>{if(!window.confirm('Möchtest du nur deine selbst gemalte Zeichnung löschen? Deine Comicfigur bleibt erhalten.'))return;paintUndoStack.push(paintCanvas.toDataURL('image/png'));paintCtx.clearRect(0,0,420,420);state.paintData=null;renderAvatar();save();$('paintMessage').textContent='🧹 Die Zeichnung ist gelöscht. Du kannst neu starten.';});
+  document.querySelectorAll('[data-paint-base]').forEach(b=>b.addEventListener('click',()=>{state.paintBase=b.dataset.paintBase;document.querySelectorAll('[data-paint-base]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('paintBase').innerHTML=baseAvatarContent();renderAvatar();save();}));
+  $('modePreset').addEventListener('click',()=>setEditMode('preset'));$('modePaint').addEventListener('click',()=>setEditMode('paint'));
+  markPaintTool();
+}
+async function downloadAvatar(){
+  const cv=document.createElement('canvas');cv.width=840;cv.height=840;const ctx=cv.getContext('2d');
+  const picture=src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;});
+  try{
+    if(state.paintBase==='blank'){ctx.fillStyle='#fffdf9';ctx.fillRect(0,0,840,840)}
+    else if(state.image){ctx.drawImage(await picture(state.image),0,0,840,840)}
+    else{
+      const svg=svgAvatar();const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
+      try{ctx.drawImage(await picture(url),0,0,840,840)}finally{URL.revokeObjectURL(url)}
+    }
+    if(state.paintData)ctx.drawImage(await picture(state.paintData),0,0,840,840);
+    cv.toBlob(blob=>{if(blob){downloadBlob(blob,cleanFilename(state.nickname)+'.png');toast('Dein fertiger Avatar wurde als PNG gespeichert!')}else toast('Das Bild konnte nicht gespeichert werden.')},'image/png');
+  }catch(e){toast('Speichern fehlgeschlagen. Bitte noch einmal versuchen.')}
+}
+function uploadAvatar(file){
+  if(!file)return;
+  if(!['image/png','image/jpeg','image/webp'].includes(file.type)){toast('Bitte PNG, JPG oder WEBP auswählen.');return;}
+  if(file.size>8*1024*1024){toast('Das Bild ist zu groß. Bitte kleiner als 8 MB.');return;}
+  const url=URL.createObjectURL(file);const img=new Image();
+  img.onload=()=>{
+    const cv=document.createElement('canvas');cv.width=480;cv.height=480;
+    const ctx=cv.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,480,480);
+    const side=Math.min(img.width,img.height),x=(img.width-side)/2,y=(img.height-side)/2;
+    ctx.drawImage(img,x,y,side,side,0,0,480,480);
+    state.image=cv.toDataURL('image/jpeg',.82);URL.revokeObjectURL(url);
+    $('uploadInfo').textContent='✓ Eigenes Bild eingefügt. Du kannst zum eingebauten Designer zurückwechseln.';
+    renderAvatar();save();toast('Bild eingefügt!');
+  };
+  img.onerror=()=>{URL.revokeObjectURL(url);toast('Bild kann nicht geöffnet werden. Probiere ein PNG oder JPG.');};img.src=url;
+}
+function saveProject(){
+  const content=JSON.stringify({type:'avatar-mission-klasse5',version:1,savedAt:new Date().toISOString(),data:state},null,2);
+  downloadBlob(new Blob([content],{type:'application/json;charset=utf-8'}),cleanFilename(state.nickname)+'-avatar-projekt.json');
+  toast('Projektdatei gesichert!');
+}
+function loadProject(file){
+  if(!file)return;
+  if(file.size>2*1024*1024){toast('Die Projektdatei ist zu groß.');return;}
+  const reader=new FileReader();reader.onload=()=>{
+    try{
+      const obj=JSON.parse(String(reader.result));
+      if(obj.type!=='avatar-mission-klasse5'||!obj.data||!window.confirm('Gespeichertes Projekt laden? Deine bisherigen Eingaben werden dadurch ersetzt.'))return;
+      state=sanitizeState(obj.data);save();hydrate();toast('Projekt geladen!');
+    }catch(e){toast('Das ist keine gültige Avatar-Projektdatei.');}
+  };reader.readAsText(file);
+}
+function hydrate(){
+  buildControls();renderAvatar();renderProfile();renderComic();renderSort();
+  setEditMode(state.editMode);refreshPaintScene();
+  $('reflection').value=state.reflection;
+  document.querySelectorAll('input[type="radio"]').forEach(r=>{r.checked=state.quiz[r.name]===r.value});
+  ['safety','files','final'].forEach(g=>{clearResult(g+'_result');QUIZZES[g].answers.forEach((_,i)=>{$(g+'_r'+i).textContent='';$(g+'_r'+i).className='response';})});
+  ['profile_result','sort_result','comic_result','design_result','finish_result'].forEach(clearResult);
+  openStep(state.step);
+}
+// Event handlers
+  document.querySelectorAll('[data-step]').forEach(btn=>btn.addEventListener('click',e=>{if(btn.tagName==='A')e.preventDefault();openStep(Number(btn.dataset.step))}));
+  $('teacherPreview').addEventListener('click',()=>{const open=document.documentElement.classList.toggle('show-all');$('teacherPreview').setAttribute('aria-pressed',String(open));$('teacherPreview').textContent=open?'↩️ Zurück zur Einzelansicht':'👩‍🏫 Alle 6 ABs auf einmal ansehen';window.scrollTo({top:0,behavior:'smooth'})});
+  document.querySelectorAll('[data-check]').forEach(btn=>btn.addEventListener('click',()=>quizCheck(btn.dataset.check)));
+  document.querySelectorAll('[data-finish]').forEach(btn=>btn.addEventListener('click',()=>finishStep(Number(btn.dataset.finish))));
+  document.querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener('change',()=>{state.quiz[input.name]=input.value;save();const [g,q]=input.name.split('_q');if(QUIZZES[g]){clearResult(g+'_result');$(g+'_r'+q).textContent='';$(g+'_r'+q).className='response';}}));
+  ['nickname','power','hobby','description'].forEach(k=>$(k).addEventListener('input',e=>{state[k]=e.target.value;renderProfile();save()}));
+  $('traitControls').querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{state.traits=Array.from($('traitControls').querySelectorAll('input:checked')).map(i=>i.value);renderProfile();save()}));
+  for(let i=0;i<3;i++)$('comic'+i).addEventListener('input',e=>{state.comic[i]=e.target.value;renderComic();save()});
+  $('reflection').addEventListener('input',e=>{state.reflection=e.target.value;save()});
+  $('editorPrev').addEventListener('click',()=>setDesignerStage(state.designStage-1));
+  $('editorNext').addEventListener('click',()=>setDesignerStage(state.designStage+1));
+  $('randomAvatar').addEventListener('click',()=>{controls.forEach(c=>{state.avatar[c.key]=Math.floor(Math.random()*c.values.length);if(!state.changed.includes(c.key))state.changed.push(c.key)});state.image=null;refreshControlSelection();renderAvatar();save();toast('Überraschungs-Avatar erstellt!');});
+  $('useBuiltIn').addEventListener('click',()=>{state.image=null;renderAvatar();save();$('uploadInfo').textContent='Du verwendest wieder deinen selbst gestalteten Avatar.';});
+  $('avatarUpload').addEventListener('change',e=>{uploadAvatar(e.target.files[0]);e.target.value='';});
+  $('downloadPng').addEventListener('click',downloadAvatar);
+  $('checkProfile').addEventListener('click',profileCheck);
+  document.querySelectorAll('.sort-btn').forEach(b=>b.addEventListener('click',()=>{state.sort.push(Number(b.dataset.order));state.sortCorrect=false;renderSort();clearResult('sort_result');save()}));
+  $('resetSort').addEventListener('click',()=>{state.sort=[];state.sortCorrect=false;renderSort();clearResult('sort_result');save()});
+  $('checkSort').addEventListener('click',sortCheck);
+  $('saveProject').addEventListener('click',saveProject);
+  $('loadProject').addEventListener('change',e=>{loadProject(e.target.files[0]);e.target.value='';});
+  $('printWork').addEventListener('click',()=>{renderProfile();renderComic();$('printReflection').textContent=safeText(state.reflection);window.print();});
+  $('resetAll').addEventListener('click',()=>{if(!window.confirm('Wirklich alle Avatar-Eingaben und deinen Fortschritt auf diesem Gerät löschen?'))return;state=DEFAULT();paintUndoStack=[];save();hydrate();toast('Alle Eingaben wurden zurückgesetzt.');});
+  setupPaintControls();hydrate();
+  // Erst nach erfolgreichem Initialisieren auf die Einzelansicht umstellen.
+  // In einer iPad-Dateivorschau ohne JavaScript bleiben alle ABs lesbar.
+  document.documentElement.classList.add('js-ready');
+})();
+</script>
+</body>
+</html>
